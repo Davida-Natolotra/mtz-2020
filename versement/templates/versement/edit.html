@@ -1,0 +1,57 @@
+{% extends 'base/blankbone.html'%}
+{% block sidebar %}
+{% include 'base/sidebar.html' %}
+{% endblock sidebar %}
+{% block topbar %}
+{% include 'base/topbar.html' %}
+{% endblock topbar %}
+{% block content %}
+{% load humanize %}
+<h3 class="h3 mb-4 text-danger text-center">{{subtitle}}</h3>
+<hr class="w3-border-red">
+<form action="" method="post" enctype="multipart/form-data" class="text-gray-800">
+  {% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-4 pre-scrollable text-gray-800" style="max-height:50vh">
+      {{ form }}
+    </div>
+    <hr class="mb-3">
+
+  </div>
+  <div class="row justify-content-center">
+    <div class=""><br>
+      <a href="/versement/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+      <button class=" btn btn-success" type="submit" data-toggle="modal" data-target="#myModal"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
+
+    </div>
+  </div>
+</form>
+
+{% include "base/modal.html" %}
+<script>
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("date").setAttribute("max", today);
+</script>
+{% block js %}
+  <script>
+    $(document).ready(function () {
+      $("#accordionSidebar").toggleClass("bg-gradient-primary bg-gradient-danger");
+      $("#versementMenu").addClass("active");
+      $("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
+      $("h3").addClass("text-danger");
+    })
+  </script>
+{% endblock js %}
+
+{% endblock %}

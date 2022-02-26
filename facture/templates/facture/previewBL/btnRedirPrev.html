@@ -1,0 +1,9 @@
+<div class="form-inline">
+  <a href="{% url 'index' %}" class="btn btn-secondary w3-margin"><i class="fas fa-chevron-left fa-fw"></i>Retour</a>
+  <a href="{% url 'editBLMoto' id=pk %}" class="btn btn-warning w3-margin"><i class="fas fa-edit fa-fw"></i>Editer</a>
+  <select name="layout" id="layout" class="form-control w3-margin w3-padding">
+    <option value="1">Une page par feuille</option>
+    <option value="2" selected>Deux pages par feuille</option>
+  </select>
+  <button class="btn btn-success w3-margin" onclick="ExportPdf()"><i class="fa fa-file-pdf fa-fw"></i> Export PDF</button>
+</div>

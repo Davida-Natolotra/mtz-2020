@@ -1,0 +1,213 @@
+{% extends 'base/blankbone.html'%}
+{% load auth_extras %}
+{% block sidebar %}
+
+{% include 'base/sidebar.html' %}
+
+{% endblock sidebar %}
+{% block topbar %}
+{% include 'base/topbarOperation.html' %}
+{% endblock topbar %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'operation/css/opstyle.css' %}">
+<div class="row justify-content-center align-bottom">
+	<div class="col-md-10 col-lg-6">
+	  <div class="w3-display-container w3-padding-24">
+		<div class="w3-display-left">
+		  <ul class="nav nav-tabs w3-border-0">
+			<li class="w3-margin-right" style="cursor: pointer;" id="linkReception">
+			  <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-light-green w3-hover-border-light-green"><span>Réception</span></h4>
+			</li>
+			<li class="w3-margin-right" style="cursor: pointer;" id="linkPreparation">
+				<h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-purple w3-hover-border-purple">Préparation</h4>
+			  </li>
+			<li class="w3-margin-right">
+			  <h4
+				class="w3-bottombar w3-border-pink w3-text-pink">
+				Dédouannement</h4>
+			</li>
+		  </ul>
+		</div>
+		<div class="w3-display-right">
+		  <button class="btn btn-secondary" onclick="toggle()"><i class="fas fa-toggle-on" id="btnToggle"></i></button>
+		  <button class="btn btn-secondary" onclick="reduce()"><i class="fas fa-angle-double-up"></i></button>
+		</div>
+	  </div>
+	</div>
+  </div>
+<form class="form-group" action="" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="row justify-content-center">
+		<div class="col-md-10 col-lg-6 pre-scrollable text-gray-800" style="max-height:60vh" id="contForm">
+			{% include "operation/DedCompany.html" %}
+			{% include "operation/DedMICTSL.html" %}
+			{% include "operation/DedDouane.html" %}
+			{% include "operation/DedDepense.html" %}
+			<h3>Total</h3>
+			<hr>
+			<div class="form-group">
+				<label for="id_Total" class="col control-label">{{form.Total.label}}</label>
+				<div class=" col">
+					{{form.Total}}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		<div class=""><br>
+			<a href="/operation/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+
+			<button class=" btn btn-success" type="submit"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
+
+		</div>
+	</div>
+
+</form>
+{% endblock content %}
+{% block js %}
+<script src="{% static 'operation/js/front-end-dedouannement.js' %}"></script>
+
+{% include 'base/modal.html'%}
+<script>
+	// Date filter
+	$(document).ready(function() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth() + 1; //January is 0!
+		var yyyy = today.getFullYear();
+		if (dd < 10) {
+			dd = '0' + dd
+		}
+		if (mm < 10) {
+			mm = '0' + mm
+		}
+
+		today = yyyy + '-' + mm + '-' + dd;
+		document.getElementById("Date_MICTSL").setAttribute("max", today);
+		document.getElementById("Date_Liquidation").setAttribute("max", today);
+		document.getElementById("Date_BS").setAttribute("max", today);
+		document.getElementById("Date_BAD").setAttribute("max", today);
+		document.getElementById("DAU_Date").setAttribute("max", today);
+		document.getElementById("OV_Date_Paiement").setAttribute("max", today);
+		document.getElementById("Date_Chargement").setAttribute("max", today);
+		document.getElementById("Date_Livraison").setAttribute("max", today);
+	})
+
+	// Ajax
+	$(document).ready(function() {
+		$('#Compagnie').change(function(e) {
+			e.preventDefault();
+			if ($(this).val() != "") {
+				var CompanyName = $("[value~=" + $(this).val() + "]").text();
+				console.log("CompanyName = " + CompanyName);
+				$.ajax({
+					type: 'GET',
+					url: "{% url 'CompanyData'%}",
+					data: {
+						"CompanyName": CompanyName,
+						csrfmiddlewaretoken: '{{ csrf_token }}'
+					},
+					success: function(response) {
+						var adresseTana = response.adresseTana;
+						document.getElementById("id_adresseTana").value = adresseTana;
+
+						var adresseTamatave = response.adresseTamatave;
+						document.getElementById("id_adresseTamatave").value = adresseTamatave;
+
+						var email1 = response.email1;
+						document.getElementById("id_email1").value = email1;
+						var email2 = response.email2;
+						document.getElementById("id_email2").value = email2;
+						var email3 = response.email3;
+						document.getElementById("id_email3").value = email3;
+						var contact = response.contact;
+						document.getElementById("id_contact").value = contact;
+
+					},
+					error: function(response) {
+						console.log("ERROR" + response);
+					}
+				})
+			} else {
+				document.getElementById("id_adresseTana").value = "";
+				document.getElementById("id_adresseTamatave").value = "";
+			}
+		})
+
+		if ($("#Compagnie").val() != "") {
+			var CompanyName = $("[value~=" + $("#Compagnie").val() + "]").text();
+			console.log("CompanyName = " + CompanyName);
+			$.ajax({
+				type: 'GET',
+				url: "{% url 'CompanyData'%}",
+				data: {
+					"CompanyName": CompanyName,
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+				},
+				success: function(response) {
+					var adresseTana = response.adresseTana;
+					document.getElementById("id_adresseTana").value = adresseTana;
+
+					var adresseTamatave = response.adresseTamatave;
+					document.getElementById("id_adresseTamatave").value = adresseTamatave;
+
+					var email1 = response.email1;
+					document.getElementById("id_email1").value = email1;
+					var email2 = response.email2;
+					document.getElementById("id_email2").value = email2;
+					var email3 = response.email3;
+					document.getElementById("id_email3").value = email3;
+					var contact = response.contact;
+					document.getElementById("id_contact").value = contact;
+
+				},
+				error: function(response) {
+					console.log("ERROR" + response);
+				}
+			})
+		} else {
+			document.getElementById("id_adresseTana").value = "";
+			document.getElementById("id_adresseTamatave").value = "";
+			document.getElementById("id_email1").value = "";
+			document.getElementById("id_email2").value = "";
+			document.getElementById("id_email3").value = "";
+			document.getElementById("id_contact").value = "";
+		}
+	})
+
+	// OV default value
+	$(document).ready(function() {
+		if (!$("#id_OV_Banque").val()) {
+			console.log("No banque");
+			document.getElementById("id_OV_Banque").value = "BMOI Mateza Transit"
+		}
+		if (!$("#id_OV_Num_Compte").val()) {
+			console.log("No num compte");
+			document.getElementById("id_OV_Num_Compte").value = "00010 035659 201 01"
+		}
+	})
+	$("#linkReception").click(()=>{
+		let ids = {{ref}}
+		console.log(ids)
+		let url = "{% url 'editReception' pk=123 %}"
+		document.location.href = url.replace('123',ids)
+	  })
+	  $("#linkPreparation").click(()=>{
+		let ids = {{ref}}
+		console.log(ids)
+		let url = "{% url 'editPreparation' pk=123 %}"
+		document.location.href = url.replace('123',ids)
+	  })
+	  $(document).ready(function () {
+		$("#pageTitle").addClass("fas fa-cogs fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+		$("#operationMenu").addClass("active");
+		$("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+		if (window.innerWidth < 1200){
+			$("h4").addClass("w3-medium");
+			document.getElementById("contForm").style.maxHeight = '50vh'
+		  }
+	});  
+</script>
+{% endblock js %}

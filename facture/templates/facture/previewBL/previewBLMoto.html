@@ -1,0 +1,45 @@
+{% extends 'base/blankbone.html' %}
+{% block sidebar %}
+{% include 'base/sidebar.html' %}
+{% endblock sidebar %}
+{% block topbar %}
+    {% include "base/topbar2.html" %}
+{% endblock topbar %}
+{% load static %}
+{% block content %}
+{% include "facture/previewBL/previewBLMotoWredir.html" %}
+{% endblock content %}
+{% block js %}
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#pageTitle').addClass('fas fa-motorcycle fa-fw w3-margin-right');
+    $('#motoMenu').addClass("active");
+    let val = $('#layout').val()
+    console.log(val)
+    if (val === "1"){
+      $('#myCanvasDouble').hide();
+      $('#myCanvas').show();
+    }
+    else if (val === "2"){
+      $('#myCanvas').hide();
+      $('#myCanvasDouble').show();
+    }
+  })
+
+  $("#layout").change(function(){
+    let val = $('#layout').val()
+    console.log(val)
+    if (val === "1"){
+      $('#myCanvasDouble').hide();
+      $('#myCanvas').show();
+    }
+    else if (val === "2"){
+      $('#myCanvas').hide();
+      $('#myCanvasDouble').show();
+    }
+  })
+</script>
+<script src="{% static 'facture/js/html2pdf.bundle.min.js' %}" charset="utf-8"></script>
+<script src="{% static 'facture/js/script.js' %}" charset="utf-8"></script>
+
+{% endblock js %}

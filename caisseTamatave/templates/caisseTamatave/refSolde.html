@@ -1,0 +1,55 @@
+{% extends 'base/blankbone.html'%}
+{% if request.user.is_staff %}
+{% block sidebar %}
+{% include "base/sidebar.html" %}
+{% endblock sidebar %}
+{% endif %}
+{% block topbar %}
+{% include "base/topbar.html" %}
+{% endblock topbar %}
+{% load static %}
+{% block content %}
+{% load humanize %}
+<h1 class="h3 mb-4 text-gray-800 text-center">Editer le solde</h1>
+<hr>
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      {{ form }}
+    </div>
+    <hr class="mb-3">
+  </div>
+  <div class="row justify-content-center">
+    <div class=""><br>
+      <a href="/caisseTamatave/" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+      <button class=" btn btn-success" type="submit"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
+
+    </div>
+  </div>
+</form>
+{% endblock  %}
+{% block js %}
+<script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
+
+<script type="text/javascript">
+  new Cleave('#id_soldeInitial', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+  new Cleave('#id_soldeActuel', {
+    numeral: true,
+    numeralDecimalMark: '.',
+    delimiter: ' '
+  });
+</script>
+<script>
+  $(document).ready(function () {
+    $("#accordionSidebar").toggleClass("bg-gradient-primary bg-gradient-danger");
+    $("#caisseTamataveMenu").addClass("active");
+    $("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
+    $("h3").addClass("text-danger");
+  })
+</script>
+{% endblock js %}

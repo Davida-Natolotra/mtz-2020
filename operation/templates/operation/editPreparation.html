@@ -1,0 +1,307 @@
+{% extends 'base/blankbone.html'%}
+{% load auth_extras %}
+{% block sidebar %}
+
+{% include 'base/sidebar.html' %}
+
+{% endblock sidebar %}
+{% block topbar %}
+{% include 'base/topbarOperation.html' %}
+{% endblock topbar %}
+{% load static %}
+{% block content %}
+{% load humanize %}
+<link rel="stylesheet" href="{% static 'operation/css/opstyle.css' %}">
+
+<div class="row justify-content-center align-bottom">
+  <div class="col-md-10 col-lg-6">
+    <div class="w3-display-container w3-padding-24">
+      <div class="w3-display-left">
+        <ul class="nav nav-tabs w3-border-0">
+          <li class="w3-margin-right" style="cursor: pointer;" id="linkReception">
+            <h4 class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-light-green w3-hover-border-light-green"><span>Réception</span></h4>
+          </li>
+          <li class="w3-margin-right">
+            <h4 class="w3-bottombar w3-border-purple w3-text-purple">
+              Préparation</h4>
+          </li>
+          <li class="w3-margin-right" style="cursor: pointer;" id="linkDedouannement">
+            <h4
+              class="w3-bottombar w3-border-light-grey text-gray-500 w3-hover-text-pink w3-hover-border-pink">
+              Dédouannement</h4>
+          </li>
+        </ul>
+      </div>
+      <div class="w3-display-right">
+        <button class="btn btn-secondary" onclick="toggle()"><i class="fas fa-toggle-on" id="btnToggle"></i></button>
+        <button class="btn btn-secondary" onclick="reduce()"><i class="fas fa-angle-double-up"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form id="myForm" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-6 pre-scrollable text-gray-800" style="max-height:60vh" id="contForm">
+      <!-- > Invoice </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header card-link">
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>Invoice</h4>
+        </div>
+        {% load l10n %}
+        <div class="card-body">
+          <label for="id_INCOTERM">{{form.INCOTERM.label}}</label>
+          {{form.INCOTERM}}
+          <label for="ID_Montant_Invoice">{{form.Montant_Invoice.label|localize}}</label>
+          {{form.Montant_Invoice}}
+          <label for="ID_Invoice_Num">{{form.Invoice_Num.label}}</label>
+          {{form.Invoice_Num}}
+          <label for="ID_Invoice_PJ">{{form.Invoice_PJ.label}}</label>
+          {{form.Invoice_PJ}}
+        </div>
+      </div>
+
+      <!-- > Packing list </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header card-link">
+
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>Packing list</h4>
+        </div>
+        <div class="card-body">
+          <label for="ID_Nbre_Colis">{{form.Nbre_Colis.label}}</label>
+          {{form.Nbre_Colis}}
+          <label for="ID_PJ_PL">{{form.PJ_PL.label}}</label>
+          {{form.PJ_PL}}
+          <label for="ID_Gross_Weight">{{form.Gross_Weight.label}}</label>
+          {{form.Gross_Weight}}
+          <label for="ID_Net_Weight">{{form.Net_Weight.label}}</label>
+          {{form.Net_Weight}}
+        </div>
+      </div>
+
+      <!-- > D.E </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header">
+
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>D.E</h4>
+        </div>
+        <div class="card-body">
+          <label for="ID_DE_Num">{{form.DE_Num.label}}</label>
+          {{form.DE_Num}}
+          <label for="ID_DE_PJ">{{form.DE_PJ.label}}</label>
+          {{form.DE_PJ}}
+        </div>
+      </div>
+
+      <!-- > Fumigation </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header">
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>Fumigation</h4>
+        </div>
+        <div class="card-body">
+          <label for="ID_Fumigation_Num">{{form.Fumigation_Num.label}}</label>
+          {{form.Fumigation_Num}}
+          <label for="ID_Fumigation_PJ">{{form.Fumigation_PJ.label}}</label>
+          {{form.Fumigation_PJ}}
+        </div>
+      </div>
+
+      <!-- > BSC </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header">
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>BSC</h4>
+        </div>
+        <div class="card-body">
+          <label for="ID_Exportateur_Name">{{form.Exportateur_Name.label}}</label>
+          {{form.Exportateur_Name}}
+          <label for="ID_BSC_ID_Exportateur">{{form.BSC_ID_Exportateur.label}}</label>
+          {{form.BSC_ID_Exportateur}}
+          <label for="ID_Importateur_Name">{{form.Importateur_Name.label}}</label>
+          {{form.Importateur_Name}}
+          <label for="ID_BSC_ID_Importateur">{{form.BSC_ID_Importateur.label}}</label>
+          {{form.BSC_ID_Importateur}}
+          <label for="ID_BSC_PJ">{{form.BSC_PJ.label}}</label>
+          {{form.BSC_PJ}}
+          <label for="ID_BSC_Remarque">{{form.BSC_Remarque.label}}</label>
+          {{form.BSC_Remarque}}
+          <label for="ID_BSC_Depense">{{form.BSC_Depense.label}}</label>
+          {{form.BSC_Depense}}
+        </div>
+      </div>
+
+      <!-- > domiciliation </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header">
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>Domiciliation</h4>
+        </div>
+        <div class="card-body">
+          <label for="ID_Dom_Num">{{form.Dom_Num.label}}</label>
+          {{form.Dom_Num}}
+          <label for="ID_Dom_PJ">{{form.Dom_PJ.label}}</label>
+          {{form.Dom_PJ}}
+          <label for="ID_Dom_Banque">{{form.Dom_Banque.label}}</label>
+          {{form.Dom_Banque}}
+          <label for="ID_Dom_Num_Compte">{{form.Dom_Num_Compte.label}}</label>
+          {{form.Dom_Num_Compte}}
+          <label for="ID_Dom_Depense">{{form.Dom_Depense.label}}</label>
+          {{form.Dom_Depense}}
+        </div>
+      </div>
+
+      <!-- > O.T </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header">
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>Ordre de transit</h4>
+        </div>
+        <div class="card-body">
+          <label for="ID_OT_PJ">{{form.OT_PJ.label}}</label>
+          {{form.OT_PJ}}
+          <label for="ID_Date_OT">{{form.Date_OT.label}}</label>
+          {{form.Date_OT}}
+          <label for="ID_OT_Honoraire">{{form.OT_Honoraire.label}}</label>
+          {{form.OT_Honoraire}}
+        </div>
+      </div>
+
+      <!-- > Autres </!-->
+      <div class="card box shadow mb-4">
+        <div class="card-header">
+          <h4><i class="fas fa-chevron-down fa-fw w3-margin-right"></i>Autres</h4>
+        </div>
+        <div class="card-body">
+          <label for="ID_Autres_Num">{{form.Autres_Num.label}}</label>
+          {{form.Autres_Num}}
+          <label for="ID_Champ_1">{{form.Champ_1.label}}</label>
+          {{form.Champ_1}}
+          <label for="ID_ch1_PJ">{{form.ch1_PJ.label}}</label>
+          {{form.ch1_PJ}}
+          <label for="ID_Champ_2">{{form.Champ_2.label}}</label>
+          {{form.Champ_2}}
+          <label for="ID_ch2_PJ">{{form.ch2_PJ.label}}</label>
+          {{form.ch2_PJ}}
+          <label for="ID_Champ_3">{{form.Champ_3.label}}</label>
+          {{form.Champ_3}}
+          <label for="ID_ch3_PJ">{{form.ch3_PJ.label}}</label>
+          {{form.ch3_PJ}}
+          <label for="ID_ch4_PJ">{{form.Champ_4.label}}</label>
+          {{form.Champ_4}}
+          <label for="ID_ch4_PJ">{{form.ch4_PJ.label}}</label>
+          {{form.ch4_PJ}}
+        </div>
+      </div>
+
+    </div>
+    <hr class="mb-3">
+
+  </div>
+
+</form>
+<div class="row justify-content-center">
+  <div class="w3-padding-16"><br>
+    <a href="/operation/" class=" btn btn-primary"><i
+        class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+
+    <button class=" btn btn-success" type="submit" form="myForm"><i class="fas fa-save w3-large w3-margin-right"></i>
+      Enregistrer</button>
+
+  </div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+{% include "base/modal.html" %}
+<script>
+  // Date filter
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("DateOT").setAttribute("max", today);
+
+  // Ajax operations
+  $(document).ready(function () {
+    $('#Exportateur').change(function (e) {
+      e.preventDefault();
+      if ($(this).val() != "") {
+        var ExportateurName = $("[value~=" + $(this).val() + "]").text();
+        $.ajax({
+          type: 'GET',
+          url: "{% url 'ExportateurData'%}",
+          data: {
+            "ExportateurName": ExportateurName,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          success: function (response) {
+            var ExportateurIdBSC = response.ExportateurIdBSC;
+            document.getElementById("ExportateurIdBSC").value = ExportateurIdBSC;
+          },
+          error: function (response) {
+            console.log("ERROR" + response);
+          }
+        })
+      } else {
+        document.getElementById("ExportateurIdBSC").value = "";
+      }
+    })
+    $('#Importateur').change(function (e) {
+      e.preventDefault();
+      if ($(this).val() != "") {
+        var ImportateurName = $("[value~=" + $(this).val() + "]").text();
+        $.ajax({
+          type: 'GET',
+          url: "{% url 'ImportateurData'%}",
+          data: {
+            "ImportateurName": ImportateurName,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          success: function (response) {
+            var ImportateurIdBSC = response.ImportateurIdBSC;
+            var DomBanque = response.DomBanque;
+            document.getElementById("ImportateurIdBSC").value = ImportateurIdBSC;
+            document.getElementById("DomBanque").value = DomBanque;
+          },
+          error: function (response) {
+            console.log("ERROR" + response);
+          }
+        })
+      } else {
+        document.getElementById("ImportateurIdBSC").value = "";
+      }
+    })
+  })
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#pageTitle").addClass("fas fa-cogs fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+    $("#operationMenu").addClass("active");
+    $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+    if (window.innerWidth < 1200){
+      $("h4").addClass("w3-medium");
+      document.getElementById("contForm").style.maxHeight = '50vh'
+    }
+  });
+  $("#linkReception").click(()=>{
+    let ids = {{ref}}
+    console.log(ids)
+    let url = "{% url 'editReception' pk=123 %}"
+    document.location.href = url.replace('123',ids)
+  })
+  $("#linkDedouannement").click(()=>{
+    let ids = {{ref}}
+    console.log(ids)
+    let url = "{% url 'editDedouannement' pk=123 %}"
+    document.location.href = url.replace('123',ids)
+  })
+</script>
+<script src="{% static 'operation/js/front-end-preparation.js' %}" charset="utf-8"></script>
+{% endblock js %}

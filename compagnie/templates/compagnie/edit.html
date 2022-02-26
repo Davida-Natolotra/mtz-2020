@@ -1,0 +1,51 @@
+{% extends 'base/main.html'%}
+
+{% block content %}
+{% load humanize %}
+
+<form id="myForm" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-4 pre-scrollable text-gray-800" style="max-height:60vh">
+      {{ form }}
+    </div>
+    <hr class="mb-3">
+
+  </div>
+
+</form>
+<div class="row justify-content-center">
+  <div class=""><br>
+    <a href="/compagnie/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
+
+    <button class=" btn btn-success" type="submit" form="myForm"></i> Enregistrer</button>
+
+  </div>
+</div>
+
+<script>
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+  document.getElementById("dateEntree").setAttribute("max", today);
+  document.getElementById("dateVente").setAttribute("max", today);
+</script>
+{% endblock content %}
+{% block js %}
+  <script>
+    $(document).ready(function () {
+      $("#pageTitle").addClass("fas fas fa-building fa-fw w3-margin-right text-gray-800").parent().toggleClass("text-primary text-gray-800");
+      $("#compagnieMenu").addClass("active")
+      $("#accordionSidebar").removeClass("bg-gradient-primary").addClass("bg-gradient-dark")
+    })
+  </script>
+{% endblock js %}
