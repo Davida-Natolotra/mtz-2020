@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .form import CaisseForm
 from .models import Caisse, Solde
 from .soldeForm import SoldeForm
@@ -46,8 +46,10 @@ def createCaisseTana(request):
         if form.is_valid():
             form.save()
             messages.success(request,'create')
+            lastCaisseTana = Caisse.objects.last()
             i = Solde.objects.latest('id')
             refSoldeTana(request,pk=i.pk)
+            return redirect('editCaisseTana', pk=lastCaisseTana.pk)
         return HttpResponseRedirect('/caisseTana/')
     else:
         form = CaisseForm()

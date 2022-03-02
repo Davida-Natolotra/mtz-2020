@@ -1,82 +1,89 @@
-{% extends 'base/blankbone.html'%}
-{% if request.user.is_staff %}
-{% block sidebar %}
-{% include "base/sidebar.html" %}
-{% endblock sidebar %}
-{% endif %}
-{% block topbar %}
-{% include "base/topbar.html" %}
-{% endblock topbar %}
-{% load static %}
-{% block content %}
-{% load humanize %}
+{% extends 'base/blankbone.html'%} {% if request.user.is_staff %} {% block
+sidebar %} {% include "base/sidebar.html" %} {% endblock sidebar %} {% endif %}
+{% block topbar %} {% include "base/topbar.html" %} {% endblock topbar %} {%
+load static %} {% block content %} {% load humanize %}
 <h1 class="h3 mb-4 text-danger text-center">{{subtitle}}</h1>
-<hr class="w3-border-red">
-<form action="" method="post" enctype="multipart/form-data" class="text-gray-800">
-  {% csrf_token %}
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-4" style="max-height:60vh">
-      {{ form }}
-    </div>
-    <hr class="mb-3">
-
-  </div>
-  <div class="row justify-content-center">
-    <div class="w3-margin"><br>
-      <a href="/caisseTana/" class=" btn btn-primary"><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i>Retour</a>
-      <button class=" btn btn-success" type="submit" data-toggle="modal" data-target="#myModal"><i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer</button>
-
-    </div>
-  </div>
+<hr class="w3-border-red" />
+<form
+	action=""
+	method="post"
+	enctype="multipart/form-data"
+	class="text-gray-800"
+>
+	{% csrf_token %}
+	<div class="row justify-content-center">
+		<div class="col-md-8 col-lg-4" style="max-height: 60vh">{{ form }}</div>
+		<hr class="mb-3" />
+	</div>
+	<div class="row justify-content-center">
+		<div class="w3-margin">
+			<br />
+			<a href="/caisseTana/" class="btn btn-primary"
+				><i class="fas fa-arrow-alt-circle-left w3-large w3-margin-right"></i
+				>Retour</a
+			>
+			<button
+				class="btn btn-success"
+				type="submit"
+				data-toggle="modal"
+				data-target="#myModal"
+			>
+				<i class="fas fa-save w3-large w3-margin-right"></i> Enregistrer
+			</button>
+			<a href="{% url 'createCaisseTana' %}" class="btn btn-danger"
+				><i class="fas fa-plus-circle fa-fw"></i> Nouvelle enregistrement</a
+			>
+		</div>
+	</div>
 </form>
-{% endblock %}
-{% block js %}
-{% include "base/modal.html" %}
+{% endblock %} {% block js %} {% include "base/modal.html" %}
 <script src="{% static 'base/js/cleave.min.js' %}" charset="utf-8"></script>
 <script>
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1; //January is 0!
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd
-  }
-  if (mm < 10) {
-    mm = '0' + mm
-  }
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1; //January is 0!
+	var yyyy = today.getFullYear();
+	if (dd < 10) {
+		dd = "0" + dd;
+	}
+	if (mm < 10) {
+		mm = "0" + mm;
+	}
 
-  today = yyyy + '-' + mm + '-' + dd;
-  document.getElementById("date").setAttribute("max", today);
+	today = yyyy + "-" + mm + "-" + dd;
+	document.getElementById("date").setAttribute("max", today);
 
-  new Cleave('#id_depense', {
-    numeral: true,
-    numeralDecimalMark: '.',
-    delimiter: ' '
-  });
-  new Cleave('#id_recette', {
-    numeral: true,
-    numeralDecimalMark: '.',
-    delimiter: ' '
-  });
+	new Cleave("#id_depense", {
+		numeral: true,
+		numeralDecimalMark: ".",
+		delimiter: " ",
+	});
+	new Cleave("#id_recette", {
+		numeral: true,
+		numeralDecimalMark: ".",
+		delimiter: " ",
+	});
 </script>
 <script>
-  $(document).ready(function () {
-    $("#accordionSidebar").toggleClass("bg-gradient-primary bg-gradient-danger");
-    $("#caisseTanaMenu").addClass("active");
-    $("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
-    $("h3").addClass("text-danger");
-  })
-  $("#id_depense").mouseleave(()=>{
-    console.log($("#id_depense").val())
-    if ($("#id_depense").val() === "" || $("#id_depense").val() === " "){
-      document.querySelector("#id_depense").value = 0
-    }
-  })
-  $("#id_recette").mouseleave(()=>{
-    console.log($("#id_recette").val())
-    if ($("#id_recette").val() === "" || $("#id_recette").val() === " "){
-      document.querySelector("#id_recette").value = 0
-    }
-  })
+	$(document).ready(function () {
+		$("#accordionSidebar").toggleClass(
+			"bg-gradient-primary bg-gradient-danger"
+		);
+		$("#caisseTanaMenu").addClass("active");
+		$("#pageTitle").addClass("fas fa-cash-register fa-fw w3-margin-right");
+		$("h3").addClass("text-danger");
+	});
+	$("#id_depense").mouseleave(() => {
+		console.log($("#id_depense").val());
+		if ($("#id_depense").val() === "" || $("#id_depense").val() === " ") {
+			document.querySelector("#id_depense").value = 0;
+		}
+	});
+	$("#id_recette").mouseleave(() => {
+		console.log($("#id_recette").val());
+		if ($("#id_recette").val() === "" || $("#id_recette").val() === " ") {
+			document.querySelector("#id_recette").value = 0;
+		}
+	});
 </script>
 {% endblock js %}

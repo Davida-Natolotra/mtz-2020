@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"firestorerules.usePrettierFormatter": true,
+		"prettier.enable": false
+	}
+}

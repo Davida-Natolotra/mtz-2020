@@ -6,10 +6,9 @@ from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from facture.models import BLMoto, FactureMoto
-from moto.form import MotoForm
+from moto.form import MotoForm, MotoFormCom
 from moto.models import Moto
 from datetime import datetime as dt, timedelta
-
 
 # Create your views here.
 @login_required(login_url='loginPage')
