@@ -40,8 +40,14 @@ def index(request):
 @login_required(login_url='loginPage')
 def createMoto(request):
     pageTitle = "Moto"
+    group = None
+    if request.user.groups.exists():
+        group = request.user.groups.all()[0].name
     if request.method == 'POST':
-        form = MotoForm(request.POST, request.FILES)
+        if group == 'commercial':
+            form = MotoFormCom(request.POST, request.FILES)
+        else:
+            form = MotoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'create')
@@ -52,7 +58,10 @@ def createMoto(request):
         else:
             messages.error(request, 'error')
     else:
-        form = MotoForm()
+        if group == 'commercial':
+            form = MotoFormCom()
+        else:
+            form = MotoForm()
 
     return render(request, 'moto/create.html', {'form': form, 'pageTitle': pageTitle})
 
@@ -78,8 +87,14 @@ def editMoto(request, pk=None):
     print(f"Edit moto {ids}")
     pk = moto.pk
     pageTitle = "Moto n°" + str(ids)
+    group = None
+    if request.user.groups.exists():
+        group = request.user.groups.all()[0].name
     if request.method == 'POST':
-        form = MotoForm(request.POST, request.FILES, instance=moto)
+        if group == 'commercial':
+            form = MotoFormCom(request.POST, request.FILES, instance=moto)
+        else:
+            form = MotoForm(request.POST, request.FILES, instance=moto)
 
         if form.is_valid():
             form.save()
@@ -87,7 +102,10 @@ def editMoto(request, pk=None):
         else:
             messages.error(request, 'error')
     else:
-        form = MotoForm(instance=moto)
+        if group == 'commercial':
+            form = MotoFormCom(instance=moto)
+        else:
+            form = MotoForm(instance=moto)
     context = {
         'form': form,
         'pageTitle': pageTitle,
@@ -101,8 +119,14 @@ def detailsMoto(request, pk=None):
     moto = get_object_or_404(Moto, pk=pk)
     ids = moto.ID_Moto
     pageTitle = "Moto n°" + str(id)
-
-    form = MotoForm(instance=moto)
+    group = None
+    if request.user.groups.exists():
+        group = request.user.groups.all()[0].NameError
+    
+    if group == 'commercial':
+        form = MotoFormCom(instance=moto)
+    else:
+        form = MotoForm(instance=moto)
     context = {
         'form': form,
         'pageTitle': pageTitle,

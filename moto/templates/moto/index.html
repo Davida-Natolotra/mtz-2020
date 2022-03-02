@@ -212,139 +212,139 @@
 					</thead>
 
 					<tbody class="text-gray-800">
-						{% for i in motos %} {% if i.num_BL != None and i.num_sur_facture ==
-						None %}
-						<tr class="w3-pale-yellow">
-							<td class="text-right">{{i.ID_Moto}}</td>
-							<td>{{i.date_entree}}</td>
-							<td>{{i.nom_moto}}</td>
-							<td>{{i.num_moteur}}</td>
-							<td>{{i.FRN}}</td>
-							{% if request.user.is_staff %}
-							<td class="text-right">{{i.PA}}</td>
-							{% endif %}
-							<td class="text-right">{{i.PV}}</td>
-							<td>{{i.date_vente}}</td>
-							<td>{{i.nom_client_1}}</td>
-							<td>{{i.tel_client_1}}</td>
-							<td>{{i.num_BL}}</td>
-							<td>{{i.num_sur_facture}}</td>
-							<td>{{i.nom_client_2}}</td>
-							<td>{{i.tel_client_2}}</td>
-							<td class="text-right">{{i.montant_reparation}}</td>
-							<td class="text-right">{{i.carte_rose}}</td>
-							<td class="text-right">{{i.model_no_1}}</td>
-							<td class="text-right">{{i.carte_grise}}</td>
-
-							{% if i.archive == False %}
-							<td>
-								<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
-									data-toggle="tooltip" title="Editer"><i class="fas fa-edit fa-fw"></i></a>
-								<a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
-									class="btn btn-circle btn-info"><b>F</b></a>
-								<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-									data-toggle="tooltip" title="BL"><b>B</b></a>
+						{% for i in motos %} 
+							{% if i.num_BL != None and i.num_sur_facture == None %}
+							<tr class="w3-pale-yellow">
+								<td class="text-right">{{i.ID_Moto}}</td>
+								<td>{{i.date_entree}}</td>
+								<td>{{i.nom_moto}}</td>
+								<td>{{i.num_moteur}}</td>
+								<td>{{i.FRN}}</td>
 								{% if request.user.is_staff %}
-								<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
-										class="fas fa-trash fa-fw"></i></a>
+								<td class="text-right">{{i.PA}}</td>
 								{% endif %}
-							</td>
-							{% elif i.archive == True %}
-							<td>
-								<a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary"
-									data-toggle="tooltip" title="Details"><i class="fas fa-file-archive fa-fw"></i>D</a>
-								<a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
-									data-toggle="tooltip" title="Facture"><b>F</b></a>
-								<a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-									data-toggle="tooltip" title="BL"><b>B</b></a>
-							</td>
+								<td class="text-right">{{i.PV}}</td>
+								<td>{{i.date_vente}}</td>
+								<td>{{i.nom_client_1}}</td>
+								<td>{{i.tel_client_1}}</td>
+								<td>{{i.num_BL}}</td>
+								<td>{{i.num_sur_facture}}</td>
+								<td>{{i.nom_client_2}}</td>
+								<td>{{i.tel_client_2}}</td>
+								<td class="text-right">{{i.montant_reparation}}</td>
+								<td class="text-right">{{i.carte_rose}}</td>
+								<td class="text-right">{{i.model_no_1}}</td>
+								<td class="text-right">{{i.carte_grise}}</td>
 
-							{% endif %}
-						</tr>
-						{% if i.num_sur_facture != None %}
-						<tr class="w3-pale-blue">
-							<td class="text-right">{{i.ID_Moto}}</td>
-							<td>{{i.date_entree}}</td>
-							<td>{{i.nom_moto}}</td>
-							<td>{{i.num_moteur}}</td>
-							<td>{{i.FRN}}</td>
-							{% if request.user.is_staff %}
-							<td class="text-right">{{i.PA}}</td>
-							{% endif %}
-							<td class="text-right">{{i.PV}}</td>
-							<td>{{i.date_vente}}</td>
-							<td>{{i.nom_client_1}}</td>
-							<td>{{i.tel_client_1}}</td>
-							<td>{{i.num_BL}}</td>
-							<td>{{i.num_sur_facture}}</td>
-							<td>{{i.nom_client_2}}</td>
-							<td>{{i.tel_client_2}}</td>
-							<td class="text-right">{{i.montant_reparation}}</td>
-							<td>{{i.carte_rose}}</td>
-							<td>{{i.model_no_1}}</td>
-							<td>{{i.carte_grise}}</td>
-							{% if i.archive == False %}
-							<td>
-								<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
-									data-toggle="tooltip" title="Editer"><i class="fas fa-edit fa-fw"></i></a>
-								<a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
-									class="btn btn-circle btn-info"><b>F</b></a>
-								<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-									data-toggle="tooltip" title="BL"><b>B</b></a>
+								{% if i.archive == False %}
+								<td>
+									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
+										data-toggle="tooltip" title="Editer"><i class="fas fa-edit fa-fw"></i></a>
+									<a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
+										class="btn btn-circle btn-info"><b>F</b></a>
+									<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
+										data-toggle="tooltip" title="BL"><b>B</b></a>
+									{% if request.user.is_staff %}
+									<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
+											class="fas fa-trash fa-fw"></i></a>
+									{% endif %}
+								</td>
+								{% elif i.archive == True %}
+								<td>
+									<a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary"
+										data-toggle="tooltip" title="Details"><i class="fas fa-file-archive fa-fw"></i>D</a>
+									<a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
+										data-toggle="tooltip" title="Facture"><b>F</b></a>
+									<a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
+										data-toggle="tooltip" title="BL"><b>B</b></a>
+								</td>
+
+								{% endif %}
+							</tr>
+							{% elif i.num_sur_facture != None %}
+							<tr class="w3-pale-blue">
+								<td class="text-right">{{i.ID_Moto}}</td>
+								<td>{{i.date_entree}}</td>
+								<td>{{i.nom_moto}}</td>
+								<td>{{i.num_moteur}}</td>
+								<td>{{i.FRN}}</td>
 								{% if request.user.is_staff %}
-								<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
-										class="fas fa-trash fa-fw"></i></a>
+								<td class="text-right">{{i.PA}}</td>
 								{% endif %}
-							</td>
-							{% elif i.archive == True %}
-							<td>
-								<a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary"
-									data-toggle="tooltip" title="Details"><i class="fas fa-file-archive fa-fw"></i>D</a>
-								<a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
-									data-toggle="tooltip" title="Facture"><b>F</b></a>
-								<a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-									data-toggle="tooltip" title="BL"><b>B</b></a>
-							</td>
+								<td class="text-right">{{i.PV}}</td>
+								<td>{{i.date_vente}}</td>
+								<td>{{i.nom_client_1}}</td>
+								<td>{{i.tel_client_1}}</td>
+								<td>{{i.num_BL}}</td>
+								<td>{{i.num_sur_facture}}</td>
+								<td>{{i.nom_client_2}}</td>
+								<td>{{i.tel_client_2}}</td>
+								<td class="text-right">{{i.montant_reparation}}</td>
+								<td>{{i.carte_rose}}</td>
+								<td>{{i.model_no_1}}</td>
+								<td>{{i.carte_grise}}</td>
+								{% if i.archive == False %}
+								<td>
+									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
+										data-toggle="tooltip" title="Editer"><i class="fas fa-edit fa-fw"></i></a>
+									<a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
+										class="btn btn-circle btn-info"><b>F</b></a>
+									<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
+										data-toggle="tooltip" title="BL"><b>B</b></a>
+									{% if request.user.is_staff %}
+									<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
+											class="fas fa-trash fa-fw"></i></a>
+									{% endif %}
+								</td>
+								{% elif i.archive == True %}
+								<td>
+									<a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary"
+										data-toggle="tooltip" title="Details"><i class="fas fa-file-archive fa-fw"></i>D</a>
+									<a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
+										data-toggle="tooltip" title="Facture"><b>F</b></a>
+									<a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
+										data-toggle="tooltip" title="BL"><b>B</b></a>
+								</td>
 
-							{% endif %}
-						</tr>
+								{% endif %}
+							</tr>
 
-						{% else %}
-						<tr>
-							<td class="text-right">{{i.ID_Moto}}</td>
-							<td>{{i.date_entree}}</td>
-							<td>{{i.nom_moto}}</td>
-							<td>{{i.num_moteur}}</td>
-							<td>{{i.FRN}}</td>
-							{% if request.user.is_staff %}
-							<td class="text-right">{{i.PA}}</td>
-							{% endif %}
-							<td class="text-right">{{i.PV}}</td>
-							<td>{{i.date_vente}}</td>
-							<td>{{i.nom_client_1}}</td>
-							<td>{{i.tel_client_1}}</td>
-							<td>{{i.num_BL}}</td>
-							<td>{{i.num_sur_facture}}</td>
-							<td>{{i.nom_client_2}}</td>
-							<td>{{i.tel_client_2}}</td>
-							<td class="text-right">{{i.montant_reparation}}</td>
-							<td>{{i.carte_rose}}</td>
-							<td>{{i.model_no_1}}</td>
-							<td>{{i.carte_grise}}</td>
-							<td>
-								<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
-									title="Editer"><i class="fas fa-edit fa-fw"></i></a>
-								<a href="{% url 'editFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
-									title="Facture"><b>F</b></a>
-								<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-									title="BL"><b>B</b></a>
+							{% else %}
+							<tr>
+								<td class="text-right">{{i.ID_Moto}}</td>
+								<td>{{i.date_entree}}</td>
+								<td>{{i.nom_moto}}</td>
+								<td>{{i.num_moteur}}</td>
+								<td>{{i.FRN}}</td>
 								{% if request.user.is_staff %}
-								<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"
-									title="Supprimer"><i class="fas fa-trash fa-fw"></i></a>
+								<td class="text-right">{{i.PA}}</td>
 								{% endif %}
-							</td>
-						</tr>
-						{% endif %} 
+								<td class="text-right">{{i.PV}}</td>
+								<td>{{i.date_vente}}</td>
+								<td>{{i.nom_client_1}}</td>
+								<td>{{i.tel_client_1}}</td>
+								<td>{{i.num_BL}}</td>
+								<td>{{i.num_sur_facture}}</td>
+								<td>{{i.nom_client_2}}</td>
+								<td>{{i.tel_client_2}}</td>
+								<td class="text-right">{{i.montant_reparation}}</td>
+								<td>{{i.carte_rose}}</td>
+								<td>{{i.model_no_1}}</td>
+								<td>{{i.carte_grise}}</td>
+								<td>
+									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
+										title="Editer"><i class="fas fa-edit fa-fw"></i></a>
+									<a href="{% url 'editFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
+										title="Facture"><b>F</b></a>
+									<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
+										title="BL"><b>B</b></a>
+									{% if request.user.is_staff %}
+									<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"
+										title="Supprimer"><i class="fas fa-trash fa-fw"></i></a>
+									{% endif %}
+								</td>
+							</tr>
+							{% endif %} 
 						{% endfor %}
 					</tbody>
 				</table>
