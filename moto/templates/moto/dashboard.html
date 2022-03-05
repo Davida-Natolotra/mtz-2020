@@ -177,6 +177,7 @@
             <th data-sortable="false">Nom sur facture</th>
             <th data-sortable="false">Tel client 2</th>
             <th data-sortable="false">Montant reparation</th>
+            <th data-sortable="false">Commercial</th>
             <th>Option</th>
           </tr>
         </thead>
@@ -199,6 +200,7 @@
             <td>{{i.num_sur_facture}}</td>
             <td>{{i.nom_client_2}}</td>
             <td>{{i.tel_client_2}}</td>
+            <td>{{i.commercial}}</td>
             <td class="text-right">{{i.montant_reparation}}</td>
 
             {% if i.archive == False %}
@@ -242,6 +244,7 @@
             <td>{{i.num_sur_facture}}</td>
             <td>{{i.nom_client_2}}</td>
             <td>{{i.tel_client_2}}</td>
+              <td>{{i.commercial}}</td>
             <td class="text-right">{{i.montant_reparation}}</td>
             {% if i.archive == False %}
             <td>
@@ -285,6 +288,7 @@
             <td>{{i.num_sur_facture}}</td>
             <td>{{i.nom_client_2}}</td>
             <td>{{i.tel_client_2}}</td>
+              <td>{{i.commercial}}</td>
             <td class="text-right">{{i.montant_reparation}}</td>
             <td>
               <a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success" title="Editer"><i

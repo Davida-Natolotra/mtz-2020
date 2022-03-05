@@ -174,9 +174,20 @@
 		<div class="card-body">
 			<div id="toolbar">
 				<button class="btn btn-primary" onclick="window.location.href='/moto/create'">
-					<i class="fas fa-plus-circle w3-margin-right"></i>Nouvelle
+					<i class="fas fa-plus-circle w3-margin-right"></i>Nouvel
 					enregistrement
 				</button>
+				<div class="col" style="margin-top:3"><p>Suivi de vente</p></div>
+				<form class="form-inline" aria-labelledby="dropdownMenuLink">
+					<div style="margin:3">
+						<label for="date-entree">Date de début</label>
+						<input type="date" name="dateEntree" class="form-control" id="date-entree" style="border-width: 1px !important" />
+						</div>
+					<div style="margin:3">
+						<label for="date-fin">Date de fin</label>
+						<input type="date" name="dateFin" id="date-fin" class="form-control" />
+					</div>
+					</form>
 			</div>
 			{% localize on %}
 			<div class="table table-responsive text-nowrap">
@@ -196,17 +207,19 @@
 							<th data-sortable="false">PA</th>
 							{% endif %}
 							<th data-sortable="false">PV</th>
-							<th data-sortable="false">Date de vente</th>
+							<th data-sortable="true">Date de vente</th>
 							<th data-sortable="true">Nom du client 1</th>
-							<th data-sortable="true">Tel client 1</th>
+							<th data-sortable="false">Tel client 1</th>
 							<th data-sortable="true">Num BL</th>
-							<th data-sortable="true">Num facture</th>
+							<th data-sortable="false">Num facture</th>
 							<th data-sortable="false">Nom sur facture</th>
 							<th data-sortable="false">Tel client 2</th>
 							<th data-sortable="false">Montant reparation</th>
 							<th data-sortable="false">Carte rose</th>
 							<th data-sortable="false">Model no 1</th>
 							<th data-sortable="false">Carte grise</th>
+							<th data-sortable="false">Commercial</th>
+							
 							<th>Options</th>
 						</tr>
 					</thead>
@@ -235,7 +248,7 @@
 								<td class="text-right">{{i.carte_rose}}</td>
 								<td class="text-right">{{i.model_no_1}}</td>
 								<td class="text-right">{{i.carte_grise}}</td>
-
+  <td>{{i.commercial}}</td>
 								{% if i.archive == False %}
 								<td>
 									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
@@ -283,6 +296,7 @@
 								<td>{{i.carte_rose}}</td>
 								<td>{{i.model_no_1}}</td>
 								<td>{{i.carte_grise}}</td>
+								  <td>{{i.commercial}}</td>
 								{% if i.archive == False %}
 								<td>
 									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
@@ -331,6 +345,7 @@
 								<td>{{i.carte_rose}}</td>
 								<td>{{i.model_no_1}}</td>
 								<td>{{i.carte_grise}}</td>
+								  <td>{{i.commercial}}</td>
 								<td>
 									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
 										title="Editer"><i class="fas fa-edit fa-fw"></i></a>
