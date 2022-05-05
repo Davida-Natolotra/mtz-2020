@@ -1,4 +1,5 @@
 import calendar
+from tokenize import String
 from asgiref.sync import sync_to_async
 from django.contrib import messages
 from django.http.response import JsonResponse, HttpResponseRedirect
@@ -9,6 +10,7 @@ from facture.models import BLMoto, FactureMoto
 from moto.form import MotoForm, MotoFormCom
 from moto.models import Moto
 from datetime import datetime as dt, timedelta
+from django.core import serializers
 
 # Create your views here.
 @login_required(login_url='loginPage')
@@ -240,3 +242,15 @@ def Chart_Year_Semestre(request):
         "datasemestre": list(Semestriel.values())
     })
     
+
+def Date_Range(request):
+    dateEntree = request.GET.get("dateEntree",None)    
+    dateFin = request.GET.get("dateFin",None)
+    print(f"dateEntree: {dateEntree}, typeDateEntree : {type(dateEntree)}, dateFin: {dateFin}")
+    lisitra = Moto.objects.filter(date_vente__range=[dateEntree,dateFin]).values()
+    lisitra = list(lisitra)
+    print(f"lisitra: {lisitra}, type: {type(lisitra)}")
+    return JsonResponse({
+        "dateIn": dateEntree,"dateOut": dateFin, "list": lisitra
+    })
+   

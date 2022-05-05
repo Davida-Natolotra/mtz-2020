@@ -187,6 +187,7 @@
 						<label for="date-fin">Date de fin</label>
 						<input type="date" name="dateFin" id="date-fin" class="form-control" />
 					</div>
+					<button class="btn btn-primary mt-4 ml-3" id="filtrer" type="button">Filtrer</button>
 					</form>
 			</div>
 			{% localize on %}
@@ -195,7 +196,7 @@
 					data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true"
 					data-pagination="true" data-sortable="true" data-sort-name="ID_Moto" data-sort-order="asc"
 					data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true"
-					data-toolbar="#toolbar">
+					data-toolbar="#toolbar" data-mobile-responsive="true" data-min-width="700" data-resizable="true">
 					<thead class="bg-primary text-white">
 						<tr>
 							<th data-sortable="true" data-field="ID_Moto">Ref</th>
@@ -207,7 +208,7 @@
 							<th data-sortable="false">PA</th>
 							{% endif %}
 							<th data-sortable="false">PV</th>
-							<th data-sortable="true">Date de vente</th>
+							<th data-sortable="false" data-filter-control="select">Date de vente</th>
 							<th data-sortable="true">Nom du client 1</th>
 							<th data-sortable="false">Tel client 1</th>
 							<th data-sortable="true">Num BL</th>
@@ -219,7 +220,7 @@
 							<th data-sortable="false">Model no 1</th>
 							<th data-sortable="false">Carte grise</th>
 							<th data-sortable="false">Commercial</th>
-							
+								<th data-sortable="true">Magasin</th>
 							<th>Options</th>
 						</tr>
 					</thead>
@@ -249,6 +250,7 @@
 								<td class="text-right">{{i.model_no_1}}</td>
 								<td class="text-right">{{i.carte_grise}}</td>
   <td>{{i.commercial}}</td>
+  <td >{{i.magasin}}</td>
 								{% if i.archive == False %}
 								<td>
 									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
@@ -297,6 +299,7 @@
 								<td>{{i.model_no_1}}</td>
 								<td>{{i.carte_grise}}</td>
 								  <td>{{i.commercial}}</td>
+								  <td >{{i.magasin}}</td>
 								{% if i.archive == False %}
 								<td>
 									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
@@ -346,6 +349,7 @@
 								<td>{{i.model_no_1}}</td>
 								<td>{{i.carte_grise}}</td>
 								  <td>{{i.commercial}}</td>
+								  <td >{{i.magasin}}</td>
 								<td>
 									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
 										title="Editer"><i class="fas fa-edit fa-fw"></i></a>
@@ -380,6 +384,7 @@
 <script src="{% static 'base/js/bootstrap-table-fixed-columns.min.js' %}"></script>
 <script src="{% static 'base/js/bootstrap-table-export.min.js' %}"></script>
 <script src="{% static 'base/js/tableExport.min.js' %}"></script>
+<script src="{% static 'base/js/bootstrap-table-resizable.min.js' %}"></script>
 <script src="{% static 'base/js/jspdf.min.js'%}"></script>
 <script src="{% static 'base/js/jspdf.plugin.autotable.js' %}"></script>
 <script src="{% static 'base/js/bootstrap-table-mobile.min.js' %}"></script>
@@ -850,5 +855,37 @@
 			console.log("resized down");
 		}
 	});
+	$("#filtrer").click(()=>{
+		var dateEntree = $("#date-entree").val();
+		var dateFin = $("#date-fin").val();
+		var today = new Date()
+console.log(`dateEntree: ${dateEntree}, type: ${typeof dateEntree}`)
+		if(dateEntree === ""){
+			
+			dateEntree = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+			console.log("dateEntree vaovao:", dateEntree)
+		}
+		else if(dateFin === ""){
+			dateFin = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
+			console.log("dateFin vaovao:", dateEntree)
+		}
+$.ajax({
+			type: "GET",
+			url: "{% url 'Date_Range'%}",
+			data: {
+				dateEntree: dateEntree,
+				dateFin: dateFin,
+				csrfmiddlewaretoken: "{{ csrf_token }}",
+			},
+			success: function (response) {
+				console.log("dateIn",response.dateIn);
+				console.log("dateOut",response.dateOut);
+				console.log("lisitra = ",response.list);
+			},
+			error: function (response) {
+				console.log("ERROR" + response);
+			},
+		});
+	})
 </script>
 {% endblock js %}
