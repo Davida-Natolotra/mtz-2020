@@ -7,11 +7,21 @@
 {% include 'base/topbar.html' %} 
 {% endblock topbar %} 
 {% block content %}
-<div class="container-fluid pre-scrollable" style="max-height: 70vh" id="wrapContent">
-	{% load static %}
+<div
+	class="container-fluid pre-scrollable"
+	style="max-height: 70vh"
+	id="wrapContent"
+>
+	{% load static %} 
 	{% load l10n %}
-	<link rel="stylesheet" href="{% static 'base/css/bootstrap-table.min.css'%}" />
-	<link rel="stylesheet" href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}" />
+	<link
+		rel="stylesheet"
+		href="{% static 'base/css/bootstrap-table.min.css'%}"
+	/>
+	<link
+		rel="stylesheet"
+		href="{% static 'base/css/bootstrap-table-fixed-columns.min.css'%}"
+	/>
 	<div class="">
 		<h1 class="h3 mb-2 text-gray-800">Tableau de bord</h1>
 	</div>
@@ -23,10 +33,15 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+							<div
+								class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+							>
 								Niveau de stock
 							</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800" id="stock"></div>
+							<div
+								class="h5 mb-0 font-weight-bold text-gray-800"
+								id="stock"
+							></div>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-warehouse fa-2x text-gray-300"></i>
@@ -42,10 +57,15 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+							<div
+								class="text-xs font-weight-bold text-success text-uppercase mb-1"
+							>
 								Dernier id
 							</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800" id="idMotoLast">
+							<div
+								class="h5 mb-0 font-weight-bold text-gray-800"
+								id="idMotoLast"
+							>
 								{{lastID}}
 							</div>
 						</div>
@@ -63,12 +83,17 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+							<div
+								class="text-xs font-weight-bold text-info text-uppercase mb-1"
+							>
 								Dernier numero facture
 							</div>
 							<div class="row no-gutters align-items-center">
 								<div class="col-auto">
-									<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="numFactureLast">
+									<div
+										class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+										id="numFactureLast"
+									>
 										{{lastFacture}}
 									</div>
 								</div>
@@ -88,10 +113,15 @@
 				<div class="card-body">
 					<div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+							<div
+								class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+							>
 								Dernier numero BL
 							</div>
-							<div class="h5 mb-0 font-weight-bold text-gray-800" id="numBLlast">
+							<div
+								class="h5 mb-0 font-weight-bold text-gray-800"
+								id="numBLlast"
+							>
 								{{lastBL}}
 							</div>
 						</div>
@@ -108,15 +138,27 @@
 		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 			<div class="card shadow mb-4">
 				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<div
+					class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+				>
 					<h6 class="m-0 font-weight-bold text-primary">Vente journalière</h6>
 					<form class="form-inline" aria-labelledby="dropdownMenuLink">
 						<select id="scopeChange" class="form-control w3-margin-right">
 							<option value="hebdomadaire">Hebdomadaire</option>
 							<option value="mensuel">Mensuelle</option>
 						</select>
-						<input type="date" class="form-control" id="date-hebdo" style="border-width: 1px !important" />
-						<input type="month" name="month" id="date-mensuel" class="form-control" />
+						<input
+							type="date"
+							class="form-control"
+							id="date-hebdo"
+							style="border-width: 1px !important"
+						/>
+						<input
+							type="month"
+							name="month"
+							id="date-mensuel"
+							class="form-control"
+						/>
 					</form>
 				</div>
 				<!-- Card Body -->
@@ -132,7 +174,9 @@
 		<div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
 			<div class="card shadow mb-4">
 				<!-- Card Header - Dropdown -->
-				<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+				<div
+					class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+				>
 					<h6 class="m-0 font-weight-bold text-primary">Vente annuelle</h6>
 					<form class="form-inline" aria-labelledby="dropdownMenuLink">
 						<select name="year" id="year" class="form-control w3-margin-right">
@@ -167,36 +211,71 @@
 			<h6 class="m-0 font-weight-bold text-primary">Table de récapitulation</h6>
 			<p>
 				Code couleur de fond de ligne sur chaque produit: <br />
-				<i>Fond bleue: le produit est vendu et a une facture</i><br /><i>Fond orange: le produit est vendu et a
-					un BL</i>
+				<i>Fond bleue: le produit est vendu et a une facture</i><br /><i
+					>Fond orange: le produit est vendu et a un BL</i
+				>
 			</p>
 		</div>
 		<div class="card-body">
 			<div id="toolbar">
-				<button class="btn btn-primary" onclick="window.location.href='/moto/create'">
+				<button
+					class="btn btn-primary"
+					onclick="window.location.href='/moto/create'"
+				>
 					<i class="fas fa-plus-circle w3-margin-right"></i>Nouvel
 					enregistrement
 				</button>
-				<div class="col" style="margin-top:3"><p>Suivi de vente</p></div>
+				<div class="col" style="margin-top: 3">
+					<p>Suivi de vente</p>
+				</div>
 				<form class="form-inline" aria-labelledby="dropdownMenuLink">
-					<div style="margin:3">
+					<div style="margin: 3">
 						<label for="date-entree">Date de début</label>
-						<input type="date" name="dateEntree" class="form-control" id="date-entree" style="border-width: 1px !important" />
-						</div>
-					<div style="margin:3">
-						<label for="date-fin">Date de fin</label>
-						<input type="date" name="dateFin" id="date-fin" class="form-control" />
+						<input
+							type="date"
+							name="dateEntree"
+							class="form-control"
+							id="date-entree"
+							style="border-width: 1px !important"
+						/>
 					</div>
-					<button class="btn btn-primary mt-4 ml-3" id="filtrer" type="button">Filtrer</button>
-					</form>
+					<div style="margin: 3">
+						<label for="date-fin">Date de fin</label>
+						<input
+							type="date"
+							name="dateFin"
+							id="date-fin"
+							class="form-control"
+						/>
+					</div>
+					<button class="btn btn-primary mt-4 ml-3" id="filtrer" type="button">
+						Filtrer
+					</button>
+				</form>
 			</div>
 			{% localize on %}
 			<div class="table table-responsive text-nowrap">
-				<table class="table-hasthead text-nowrap" id="tableTest1" data-search="true" data-fixed-columns="true"
-					data-fixed-number="1" data-fixed-right-number="1" data-toggle="table" data-show-columns="true"
-					data-pagination="true" data-sortable="true" data-sort-name="ID_Moto" data-sort-order="asc"
-					data-show-export="true" data-show-button-icons="true" data-show-pagination-switch="true"
-					data-toolbar="#toolbar" data-mobile-responsive="true" data-min-width="700" data-resizable="true">
+				<table
+					class="table-hasthead text-nowrap"
+					id="tableTest1"
+					data-search="true"
+					data-fixed-columns="true"
+					data-fixed-number="1"
+					data-fixed-right-number="1"
+					data-toggle="table"
+					data-show-columns="true"
+					data-pagination="true"
+					data-sortable="true"
+					data-sort-name="ID_Moto"
+					data-sort-order="asc"
+					data-show-export="true"
+					data-show-button-icons="true"
+					data-show-pagination-switch="true"
+					data-toolbar="#toolbar"
+					data-mobile-responsive="true"
+					data-min-width="700"
+					data-resizable="false"
+				>
 					<thead class="bg-primary text-white">
 						<tr>
 							<th data-sortable="true" data-field="ID_Moto">Ref</th>
@@ -208,7 +287,9 @@
 							<th data-sortable="false">PA</th>
 							{% endif %}
 							<th data-sortable="false">PV</th>
-							<th data-sortable="false" data-filter-control="select">Date de vente</th>
+							<th data-sortable="false" data-filter-control="select">
+								Date de vente
+							</th>
 							<th data-sortable="true">Nom du client 1</th>
 							<th data-sortable="false">Tel client 1</th>
 							<th data-sortable="true">Num BL</th>
@@ -220,151 +301,232 @@
 							<th data-sortable="false">Model no 1</th>
 							<th data-sortable="false">Carte grise</th>
 							<th data-sortable="false">Commercial</th>
-								<th data-sortable="true">Magasin</th>
+							<th data-sortable="true">Magasin</th>
 							<th>Options</th>
 						</tr>
 					</thead>
 
 					<tbody class="text-gray-800">
 						{% for i in motos %} 
-							{% if i.num_BL != None and i.num_sur_facture == None %}
-							<tr class="w3-pale-yellow">
-								<td class="text-right">{{i.ID_Moto}}</td>
-								<td>{{i.date_entree}}</td>
-								<td>{{i.nom_moto}}</td>
-								<td>{{i.num_moteur}}</td>
-								<td>{{i.FRN}}</td>
+						{% if i.num_BL != None and i.num_sur_facture == None %}
+						<tr class="w3-pale-yellow">
+							<td class="text-right">{{i.ID_Moto}}</td>
+							<td>{{i.date_entree}}</td>
+							<td>{{i.nom_moto}}</td>
+							<td>{{i.num_moteur}}</td>
+							<td>{{i.FRN}}</td>
+							{% if request.user.is_staff %}
+							<td class="text-right">{{i.PA}}</td>
+							{% endif %}
+							<td class="text-right">{{i.PV}}</td>
+							<td>{{i.date_vente}}</td>
+							<td>{{i.nom_client_1}}</td>
+							<td>{{i.tel_client_1}}</td>
+							<td>{{i.num_BL}}</td>
+							<td>{{i.num_sur_facture}}</td>
+							<td>{{i.nom_client_2}}</td>
+							<td>{{i.tel_client_2}}</td>
+							<td class="text-right">{{i.montant_reparation}}</td>
+							<td class="text-right">{{i.carte_rose}}</td>
+							<td class="text-right">{{i.model_no_1}}</td>
+							<td class="text-right">{{i.carte_grise}}</td>
+							<td>{{i.commercial}}</td>
+							<td>{{i.magasin}}</td>
+							{% if i.archive == False %}
+							<td>
+								<a
+									href="{% url 'editMoto' pk=i.pk %}"
+									class="btn btn-circle btn-success"
+									data-toggle="tooltip"
+									title="Editer"
+									><i class="fas fa-edit fa-fw"></i
+								></a>
+								<a
+									href="{% url 'editFactureMoto' id=i.pk %}"
+									data-toggle="tooltip"
+									title="Facture"
+									class="btn btn-circle btn-info"
+									><b>F</b></a
+								>
+								<a
+									href="{% url 'editBLMoto' id=i.pk %}"
+									class="btn btn-circle btn-warning"
+									data-toggle="tooltip"
+									title="BL"
+									><b>B</b></a
+								>
 								{% if request.user.is_staff %}
-								<td class="text-right">{{i.PA}}</td>
+								<a
+									href="{% url 'deleteMoto' pk=i.pk %}"
+									class="btn btn-circle btn-danger"
+									><i class="fas fa-trash fa-fw"></i
+								></a>
 								{% endif %}
-								<td class="text-right">{{i.PV}}</td>
-								<td>{{i.date_vente}}</td>
-								<td>{{i.nom_client_1}}</td>
-								<td>{{i.tel_client_1}}</td>
-								<td>{{i.num_BL}}</td>
-								<td>{{i.num_sur_facture}}</td>
-								<td>{{i.nom_client_2}}</td>
-								<td>{{i.tel_client_2}}</td>
-								<td class="text-right">{{i.montant_reparation}}</td>
-								<td class="text-right">{{i.carte_rose}}</td>
-								<td class="text-right">{{i.model_no_1}}</td>
-								<td class="text-right">{{i.carte_grise}}</td>
-  <td>{{i.commercial}}</td>
-  <td >{{i.magasin}}</td>
-								{% if i.archive == False %}
-								<td>
-									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
-										data-toggle="tooltip" title="Editer"><i class="fas fa-edit fa-fw"></i></a>
-									<a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
-										class="btn btn-circle btn-info"><b>F</b></a>
-									<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-										data-toggle="tooltip" title="BL"><b>B</b></a>
-									{% if request.user.is_staff %}
-									<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
-											class="fas fa-trash fa-fw"></i></a>
-									{% endif %}
-								</td>
-								{% elif i.archive == True %}
-								<td>
-									<a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary"
-										data-toggle="tooltip" title="Details"><i class="fas fa-file-archive fa-fw"></i>D</a>
-									<a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
-										data-toggle="tooltip" title="Facture"><b>F</b></a>
-									<a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-										data-toggle="tooltip" title="BL"><b>B</b></a>
-								</td>
+							</td>
+							{% elif i.archive == True %}
+							<td>
+								<a
+									href="{% url 'detailsMoto' pk=i.pk %}"
+									class="btn btn-circle btn-secondary"
+									data-toggle="tooltip"
+									title="Details"
+									><i class="fas fa-file-archive fa-fw"></i>D</a
+								>
+								<a
+									href="{% url 'previewFactureMoto' id=i.pk %}"
+									class="btn btn-circle btn-info"
+									data-toggle="tooltip"
+									title="Facture"
+									><b>F</b></a
+								>
+								<a
+									href="{% url 'previewBLMoto' id=i.pk %}"
+									class="btn btn-circle btn-warning"
+									data-toggle="tooltip"
+									title="BL"
+									><b>B</b></a
+								>
+							</td>
 
-								{% endif %}
-							</tr>
-							{% elif i.num_sur_facture != None %}
-							<tr class="w3-pale-blue">
-								<td class="text-right">{{i.ID_Moto}}</td>
-								<td>{{i.date_entree}}</td>
-								<td>{{i.nom_moto}}</td>
-								<td>{{i.num_moteur}}</td>
-								<td>{{i.FRN}}</td>
+							{% endif %}
+						</tr>
+						{% elif i.num_sur_facture != None %}
+						<tr class="w3-pale-blue">
+							<td class="text-right">{{i.ID_Moto}}</td>
+							<td>{{i.date_entree}}</td>
+							<td>{{i.nom_moto}}</td>
+							<td>{{i.num_moteur}}</td>
+							<td>{{i.FRN}}</td>
+							{% if request.user.is_staff %}
+							<td class="text-right">{{i.PA}}</td>
+							{% endif %}
+							<td class="text-right">{{i.PV}}</td>
+							<td>{{i.date_vente}}</td>
+							<td>{{i.nom_client_1}}</td>
+							<td>{{i.tel_client_1}}</td>
+							<td>{{i.num_BL}}</td>
+							<td>{{i.num_sur_facture}}</td>
+							<td>{{i.nom_client_2}}</td>
+							<td>{{i.tel_client_2}}</td>
+							<td class="text-right">{{i.montant_reparation}}</td>
+							<td>{{i.carte_rose}}</td>
+							<td>{{i.model_no_1}}</td>
+							<td>{{i.carte_grise}}</td>
+							<td>{{i.commercial}}</td>
+							<td>{{i.magasin}}</td>
+							{% if i.archive == False %}
+							<td>
+								<a
+									href="{% url 'editMoto' pk=i.pk %}"
+									class="btn btn-circle btn-success"
+									data-toggle="tooltip"
+									title="Editer"
+									><i class="fas fa-edit fa-fw"></i
+								></a>
+								<a
+									href="{% url 'editFactureMoto' id=i.pk %}"
+									data-toggle="tooltip"
+									title="Facture"
+									class="btn btn-circle btn-info"
+									><b>F</b></a
+								>
+								<a
+									href="{% url 'editBLMoto' id=i.pk %}"
+									class="btn btn-circle btn-warning"
+									data-toggle="tooltip"
+									title="BL"
+									><b>B</b></a
+								>
 								{% if request.user.is_staff %}
-								<td class="text-right">{{i.PA}}</td>
+								<a
+									href="{% url 'deleteMoto' pk=i.pk %}"
+									class="btn btn-circle btn-danger"
+									><i class="fas fa-trash fa-fw"></i
+								></a>
 								{% endif %}
-								<td class="text-right">{{i.PV}}</td>
-								<td>{{i.date_vente}}</td>
-								<td>{{i.nom_client_1}}</td>
-								<td>{{i.tel_client_1}}</td>
-								<td>{{i.num_BL}}</td>
-								<td>{{i.num_sur_facture}}</td>
-								<td>{{i.nom_client_2}}</td>
-								<td>{{i.tel_client_2}}</td>
-								<td class="text-right">{{i.montant_reparation}}</td>
-								<td>{{i.carte_rose}}</td>
-								<td>{{i.model_no_1}}</td>
-								<td>{{i.carte_grise}}</td>
-								  <td>{{i.commercial}}</td>
-								  <td >{{i.magasin}}</td>
-								{% if i.archive == False %}
-								<td>
-									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
-										data-toggle="tooltip" title="Editer"><i class="fas fa-edit fa-fw"></i></a>
-									<a href="{% url 'editFactureMoto' id=i.pk %}" data-toggle="tooltip" title="Facture"
-										class="btn btn-circle btn-info"><b>F</b></a>
-									<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-										data-toggle="tooltip" title="BL"><b>B</b></a>
-									{% if request.user.is_staff %}
-									<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"><i
-											class="fas fa-trash fa-fw"></i></a>
-									{% endif %}
-								</td>
-								{% elif i.archive == True %}
-								<td>
-									<a href="{% url 'detailsMoto' pk=i.pk %}" class="btn btn-circle btn-secondary"
-										data-toggle="tooltip" title="Details"><i class="fas fa-file-archive fa-fw"></i>D</a>
-									<a href="{% url 'previewFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
-										data-toggle="tooltip" title="Facture"><b>F</b></a>
-									<a href="{% url 'previewBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-										data-toggle="tooltip" title="BL"><b>B</b></a>
-								</td>
+							</td>
+							{% elif i.archive == True %}
+							<td>
+								<a
+									href="{% url 'detailsMoto' pk=i.pk %}"
+									class="btn btn-circle btn-secondary"
+									data-toggle="tooltip"
+									title="Details"
+									><i class="fas fa-file-archive fa-fw"></i>D</a
+								>
+								<a
+									href="{% url 'previewFactureMoto' id=i.pk %}"
+									class="btn btn-circle btn-info"
+									data-toggle="tooltip"
+									title="Facture"
+									><b>F</b></a
+								>
+								<a
+									href="{% url 'previewBLMoto' id=i.pk %}"
+									class="btn btn-circle btn-warning"
+									data-toggle="tooltip"
+									title="BL"
+									><b>B</b></a
+								>
+							</td>
 
-								{% endif %}
-							</tr>
+							{% endif %}
+						</tr>
 
-							{% else %}
-							<tr>
-								<td class="text-right">{{i.ID_Moto}}</td>
-								<td>{{i.date_entree}}</td>
-								<td>{{i.nom_moto}}</td>
-								<td>{{i.num_moteur}}</td>
-								<td>{{i.FRN}}</td>
+						{% else %}
+						<tr>
+							<td class="text-right">{{i.ID_Moto}}</td>
+							<td>{{i.date_entree}}</td>
+							<td>{{i.nom_moto}}</td>
+							<td>{{i.num_moteur}}</td>
+							<td>{{i.FRN}}</td>
+							{% if request.user.is_staff %}
+							<td class="text-right">{{i.PA}}</td>
+							{% endif %}
+							<td class="text-right">{{i.PV}}</td>
+							<td>{{i.date_vente}}</td>
+							<td>{{i.nom_client_1}}</td>
+							<td>{{i.tel_client_1}}</td>
+							<td>{{i.num_BL}}</td>
+							<td>{{i.num_sur_facture}}</td>
+							<td>{{i.nom_client_2}}</td>
+							<td>{{i.tel_client_2}}</td>
+							<td class="text-right">{{i.montant_reparation}}</td>
+							<td>{{i.carte_rose}}</td>
+							<td>{{i.model_no_1}}</td>
+							<td>{{i.carte_grise}}</td>
+							<td>{{i.commercial}}</td>
+							<td>{{i.magasin}}</td>
+							<td>
+								<a
+									href="{% url 'editMoto' pk=i.pk %}"
+									class="btn btn-circle btn-success"
+									title="Editer"
+									><i class="fas fa-edit fa-fw"></i
+								></a>
+								<a
+									href="{% url 'editFactureMoto' id=i.pk %}"
+									class="btn btn-circle btn-info"
+									title="Facture"
+									><b>F</b></a
+								>
+								<a
+									href="{% url 'editBLMoto' id=i.pk %}"
+									class="btn btn-circle btn-warning"
+									title="BL"
+									><b>B</b></a
+								>
 								{% if request.user.is_staff %}
-								<td class="text-right">{{i.PA}}</td>
+								<a
+									href="{% url 'deleteMoto' pk=i.pk %}"
+									class="btn btn-circle btn-danger"
+									title="Supprimer"
+									><i class="fas fa-trash fa-fw"></i
+								></a>
 								{% endif %}
-								<td class="text-right">{{i.PV}}</td>
-								<td>{{i.date_vente}}</td>
-								<td>{{i.nom_client_1}}</td>
-								<td>{{i.tel_client_1}}</td>
-								<td>{{i.num_BL}}</td>
-								<td>{{i.num_sur_facture}}</td>
-								<td>{{i.nom_client_2}}</td>
-								<td>{{i.tel_client_2}}</td>
-								<td class="text-right">{{i.montant_reparation}}</td>
-								<td>{{i.carte_rose}}</td>
-								<td>{{i.model_no_1}}</td>
-								<td>{{i.carte_grise}}</td>
-								  <td>{{i.commercial}}</td>
-								  <td >{{i.magasin}}</td>
-								<td>
-									<a href="{% url 'editMoto' pk=i.pk %}" class="btn btn-circle btn-success"
-										title="Editer"><i class="fas fa-edit fa-fw"></i></a>
-									<a href="{% url 'editFactureMoto' id=i.pk %}" class="btn btn-circle btn-info"
-										title="Facture"><b>F</b></a>
-									<a href="{% url 'editBLMoto' id=i.pk %}" class="btn btn-circle btn-warning"
-										title="BL"><b>B</b></a>
-									{% if request.user.is_staff %}
-									<a href="{% url 'deleteMoto' pk=i.pk %}" class="btn btn-circle btn-danger"
-										title="Supprimer"><i class="fas fa-trash fa-fw"></i></a>
-									{% endif %}
-								</td>
-							</tr>
-							{% endif %} 
-						{% endfor %}
+							</td>
+						</tr>
+						{% endif %} {% endfor %}
 					</tbody>
 				</table>
 			</div>
@@ -372,10 +534,7 @@
 		</div>
 	</div>
 </div>
-{% endblock content %} 
-{% block js %} 
-
-{% load static %}
+{% endblock content %} {% block js %} {% load static %}
 <!-- Core plugin JavaScript-->
 <script src="{% static 'base/js/popper.min.js'%}"></script>
 <script src="{% static 'base/js/bootstrap-table.min.js'%}"></script>
@@ -662,77 +821,79 @@
 			type: "bar",
 			data: {
 				labels: labels,
-				datasets: [{
-					label: "Vente journalière",
-					data: data,
-					backgroundColor: [
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-						"rgba(255, 99, 132, 0.2)",
-					],
-					borderColor: [
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-						"rgba(255, 99, 132, 1)",
-					],
-					borderWidth: 1,
-				}, ],
+				datasets: [
+					{
+						label: "Vente journalière",
+						data: data,
+						backgroundColor: [
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+							"rgba(255, 99, 132, 0.2)",
+						],
+						borderColor: [
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+							"rgba(255, 99, 132, 1)",
+						],
+						borderWidth: 1,
+					},
+				],
 			},
 			options: {
 				maintainAspectRatio: false,
@@ -745,13 +906,15 @@
 					},
 				},
 				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true,
-							crossAlign: "far",
-							stepSize: 1,
+					yAxes: [
+						{
+							ticks: {
+								beginAtZero: true,
+								crossAlign: "far",
+								stepSize: 1,
+							},
 						},
-					}, ],
+					],
 				},
 			},
 		});
@@ -767,22 +930,24 @@
 			type: type,
 			data: {
 				labels: labels,
-				datasets: [{
-					label: title,
-					data: data,
-					lineTension: 0.3,
-					backgroundColor: "rgba(78, 115, 223, 0.05)",
-					borderColor: "rgba(78, 115, 223, 1)",
-					pointRadius: 3,
-					pointBackgroundColor: "rgba(78, 115, 223, 1)",
-					pointBorderColor: "rgba(78, 115, 223, 1)",
-					pointHoverRadius: 3,
-					pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-					pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-					pointHitRadius: 10,
-					pointBorderWidth: 2,
-					borderWidth: 2,
-				}, ],
+				datasets: [
+					{
+						label: title,
+						data: data,
+						lineTension: 0.3,
+						backgroundColor: "rgba(78, 115, 223, 0.05)",
+						borderColor: "rgba(78, 115, 223, 1)",
+						pointRadius: 3,
+						pointBackgroundColor: "rgba(78, 115, 223, 1)",
+						pointBorderColor: "rgba(78, 115, 223, 1)",
+						pointHoverRadius: 3,
+						pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+						pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+						pointHitRadius: 10,
+						pointBorderWidth: 2,
+						borderWidth: 2,
+					},
+				],
 			},
 			options: {
 				maintainAspectRatio: false,
@@ -795,11 +960,13 @@
 					},
 				},
 				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero: true,
+					yAxes: [
+						{
+							ticks: {
+								beginAtZero: true,
+							},
 						},
-					}, ],
+					],
 				},
 			},
 		});
@@ -811,12 +978,14 @@
 			type: "doughnut",
 			data: {
 				labels: labels,
-				datasets: [{
-					data: data,
-					backgroundColor: ["#4e73df", "#1cc88a"],
-					hoverBackgroundColor: ["#2e59d9", "#17a673"],
-					hoverBorderColor: "rgba(234, 236, 244, 1)",
-				}, ],
+				datasets: [
+					{
+						data: data,
+						backgroundColor: ["#4e73df", "#1cc88a"],
+						hoverBackgroundColor: ["#2e59d9", "#17a673"],
+						hoverBorderColor: "rgba(234, 236, 244, 1)",
+					},
+				],
 			},
 			options: {
 				maintainAspectRatio: false,
@@ -855,21 +1024,29 @@
 			console.log("resized down");
 		}
 	});
-	$("#filtrer").click(()=>{
+	$("#filtrer").click(() => {
 		var dateEntree = $("#date-entree").val();
 		var dateFin = $("#date-fin").val();
-		var today = new Date()
-console.log(`dateEntree: ${dateEntree}, type: ${typeof dateEntree}`)
-		if(dateEntree === ""){
-			
-			dateEntree = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-			console.log("dateEntree vaovao:", dateEntree)
+		var today = new Date();
+		console.log(`dateEntree: ${dateEntree}, type: ${typeof dateEntree}`);
+		if (dateEntree === "") {
+			dateEntree =
+				today.getFullYear() +
+				"-" +
+				(today.getMonth() + 1) +
+				"-" +
+				today.getDate();
+			console.log("dateEntree vaovao:", dateEntree);
+		} else if (dateFin === "") {
+			dateFin =
+				today.getFullYear() +
+				"-" +
+				(today.getMonth() + 1) +
+				"-" +
+				today.getDate();
+			console.log("dateFin vaovao:", dateEntree);
 		}
-		else if(dateFin === ""){
-			dateFin = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate()
-			console.log("dateFin vaovao:", dateEntree)
-		}
-$.ajax({
+		$.ajax({
 			type: "GET",
 			url: "{% url 'Date_Range'%}",
 			data: {
@@ -878,14 +1055,14 @@ $.ajax({
 				csrfmiddlewaretoken: "{{ csrf_token }}",
 			},
 			success: function (response) {
-				console.log("dateIn",response.dateIn);
-				console.log("dateOut",response.dateOut);
-				console.log("lisitra = ",response.list);
+				console.log("dateIn", response.dateIn);
+				console.log("dateOut", response.dateOut);
+				console.log("lisitra = ", response.list);
 			},
 			error: function (response) {
 				console.log("ERROR" + response);
 			},
 		});
-	})
+	});
 </script>
 {% endblock js %}

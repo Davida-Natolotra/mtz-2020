@@ -242,14 +242,13 @@ def Chart_Year_Semestre(request):
         "datasemestre": list(Semestriel.values())
     })
     
-
+@sync_to_async
 def Date_Range(request):
     dateEntree = request.GET.get("dateEntree",None)    
     dateFin = request.GET.get("dateFin",None)
-    print(f"dateEntree: {dateEntree}, typeDateEntree : {type(dateEntree)}, dateFin: {dateFin}")
+   
     lisitra = Moto.objects.filter(date_vente__range=[dateEntree,dateFin]).values()
     lisitra = list(lisitra)
-    print(f"lisitra: {lisitra}, type: {type(lisitra)}")
     return JsonResponse({
         "dateIn": dateEntree,"dateOut": dateFin, "list": lisitra
     })
