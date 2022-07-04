@@ -144,10 +144,17 @@ def deleteMoto(request, pk=None):
     if request.method == 'POST':
         moto.delete()
         messages.success(request, 'delete')
+<<<<<<< HEAD
         MotoAll = Moto.objects.all()
         for i in range(len(MotoAll)):
             MotoAll[i].ID_Moto = i+1
             MotoAll[i].save()
+=======
+        motos_all = Moto.objects.all()
+        for i in range(len(motos_all)):
+            motos_all[i].ID_Moto = i + 1
+            motos_all[i].save()
+>>>>>>> 6d9890cb2ce961989168dd62e45bb95357c055c8
         return HttpResponseRedirect('/moto/')
 
     return render(request, 'moto/delete.html', {'moto': moto})

@@ -1,4 +1,4 @@
-asgiref==3.3.1
+asgiref==3.5.2
 astroid==2.9.3
 attrs==20.3.0
 Automat==20.2.0
@@ -9,9 +9,12 @@ click==7.1.2
 constantly==15.1.0
 cryptography==3.3.1
 defusedxml==0.7.1
-Django==3.1.7
+Django==3.2
 django-allauth==0.44.0
+django-cors-headers==3.13.0
 django-debug-toolbar==3.2
+django-filter==21.1
+djangorestframework==3.13.1
 docopt==0.6.2
 dodgy==0.2.1
 flake8==4.0.1
@@ -22,9 +25,11 @@ hpack==3.0.0
 hyperframe==3.2.0
 hyperlink==20.0.1
 idna==2.10
+importlib-metadata==4.11.3
 incremental==17.5.0
 isort==5.7.0
 lazy-object-proxy==1.4.3
+Markdown==3.3.7
 mccabe==0.6.1
 num2words==0.5.10
 oauthlib==3.1.0
@@ -63,4 +68,5 @@ uvicorn==0.13.4
 webencodings==0.5.1
 whitenoise==5.2.0
 wrapt==1.12.1
+zipp==3.8.0
 zope.interface==5.2.0
