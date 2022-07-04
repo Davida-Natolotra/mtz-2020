@@ -10,7 +10,9 @@ from facture.models import BLMoto, FactureMoto
 from moto.form import MotoForm, MotoFormCom
 from moto.models import Moto
 from datetime import datetime as dt, timedelta
-from django.core import serializers
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import MotoSerializer
 
 # Create your views here.
 @login_required(login_url='loginPage')
@@ -142,6 +144,10 @@ def deleteMoto(request, pk=None):
     if request.method == 'POST':
         moto.delete()
         messages.success(request, 'delete')
+        MotoAll = Moto.objects.all()
+        for i in range(len(MotoAll)):
+            MotoAll[i].ID_Moto = i+1
+            MotoAll[i].save()
         return HttpResponseRedirect('/moto/')
 
     return render(request, 'moto/delete.html', {'moto': moto})
@@ -252,4 +258,11 @@ def Date_Range(request):
     return JsonResponse({
         "dateIn": dateEntree,"dateOut": dateFin, "list": lisitra
     })
-   
+
+
+@api_view(['GET'])   
+def getMotos(request):
+    Motos = Moto.objects.all()
+    serializer = MotoSerializer(Motos,many=True)
+    return Response(serializer.data)
+

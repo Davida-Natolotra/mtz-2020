@@ -1,3 +1,4 @@
+from os import name
 from django.urls import path
 from moto import views
 
@@ -14,4 +15,5 @@ urlpatterns = [
     path('moto/Chart_Year_Trimestre', views.Chart_Year_Trimestre, name='Chart_Year_Trimestre'),
     path('moto/Chart_Year_Semestre', views.Chart_Year_Semestre, name='Chart_Year_Semestre'),
     path('moto/Date_Range', views.Date_Range, name='Date_Range'),
+    path('api/',views.getMotos,name='api')
 ]
