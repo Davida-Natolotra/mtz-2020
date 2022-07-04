@@ -144,17 +144,10 @@ def deleteMoto(request, pk=None):
     if request.method == 'POST':
         moto.delete()
         messages.success(request, 'delete')
-<<<<<<< HEAD
-        MotoAll = Moto.objects.all()
-        for i in range(len(MotoAll)):
-            MotoAll[i].ID_Moto = i+1
-            MotoAll[i].save()
-=======
         motos_all = Moto.objects.all()
         for i in range(len(motos_all)):
             motos_all[i].ID_Moto = i + 1
             motos_all[i].save()
->>>>>>> 6d9890cb2ce961989168dd62e45bb95357c055c8
         return HttpResponseRedirect('/moto/')
 
     return render(request, 'moto/delete.html', {'moto': moto})
@@ -255,16 +248,16 @@ def Chart_Year_Semestre(request):
         "datasemestre": list(Semestriel.values())
     })
     
-@sync_to_async
+@api_view(['GET']) 
 def Date_Range(request):
     dateEntree = request.GET.get("dateEntree",None)    
     dateFin = request.GET.get("dateFin",None)
-   
-    lisitra = Moto.objects.filter(date_vente__range=[dateEntree,dateFin]).values()
+    if len(dateEntree) == 0 and len(dateFin) == 0:
+        lisitra = Moto.objects.all()
+    else:
+        lisitra = Moto.objects.filter(date_vente__range=[dateEntree,dateFin]).values()
     lisitra = list(lisitra)
-    return JsonResponse({
-        "dateIn": dateEntree,"dateOut": dateFin, "list": lisitra
-    })
+    return Response(lisitra)
 
 
 @api_view(['GET'])   

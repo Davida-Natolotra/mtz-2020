@@ -39,6 +39,8 @@ class Moto(models.Model):
     carte_grise = models.CharField(max_length=50,blank=True)
     model_no_1 = models.CharField(max_length=50,blank=True)
     magasin = models.CharField(max_length=50,blank=True)
+    date_facture = models.DateField(auto_now = False, null = True)
+    date_BL = models.DateField(auto_now = False, null = True)
     
     def __str__(self):
         return self.nom_moto

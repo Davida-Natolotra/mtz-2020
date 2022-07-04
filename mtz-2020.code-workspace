@@ -8,5 +8,24 @@
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
 		"firestorerules.usePrettierFormatter": true,
 		"prettier.enable": false
+	},
+	"launch": {
+		"configurations": [
+			{
+				"type": "aws-sam",
+				"request": "direct-invoke",
+				"name": "mtz-2020:moto/views.getMotos (python3.9)",
+				"invokeTarget": {
+					"target": "code",
+					"projectRoot": "${workspaceFolder}/",
+					"lambdaHandler": "moto/views.getMotos"
+				},
+				"lambda": {
+					"runtime": "python3.9",
+					"payload": {},
+					"environmentVariables": {}
+				}
+			}
+		]
 	}
 }
