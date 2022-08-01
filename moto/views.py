@@ -13,6 +13,8 @@ from datetime import datetime as dt, timedelta
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import MotoSerializer
+from django.db.models import Max
+
 
 # Create your views here.
 @login_required(login_url='loginPage')
@@ -247,9 +249,20 @@ def Chart_Year_Semestre(request):
         "semestre":list(Semestriel.keys()),
         "datasemestre": list(Semestriel.values())
     })
+@sync_to_async    
+def Date_Range(request):
+    dateEntree = request.GET.get("dateEntree",None)    
+    dateFin = request.GET.get("dateFin",None)
+    if len(dateEntree) == 0 and len(dateFin) == 0:
+        lisitra = Moto.objects.all()
+    else:
+        lisitra = Moto.objects.filter(date_vente__range=[dateEntree,dateFin]).values()
+    lisitra = list(lisitra)
+    return JsonResponse(lisitra)
+    
     
 @api_view(['GET']) 
-def Date_Range(request):
+def Date_Range_API(request):
     dateEntree = request.GET.get("dateEntree",None)    
     dateFin = request.GET.get("dateFin",None)
     if len(dateEntree) == 0 and len(dateFin) == 0:
@@ -266,3 +279,78 @@ def getMotos(request):
     serializer = MotoSerializer(Motos,many=True)
     return Response(serializer.data)
 
+
+@sync_to_async
+@api_view(['GET']) 
+def Chart_Hebdo_API(request):
+    dateEntree = request.GET.get("dateEntree",None)    
+    dateFin = request.GET.get("dateFin",None)
+    data_Week = {}
+    print(f"dateEntree: {dateEntree}, type: {type(dateEntree)}")
+    start = dt.strptime(dateEntree, "%Y/%m/%d")
+    end = dt.strptime(dateFin, "%Y/%m/%d")
+    delta = end - start  # as timedelta
+    days = [start + timedelta(days=i) for i in range(delta.days + 1)]
+    for day in days:
+        data_Week[day] = list(Moto.objects.filter(date_vente=day).values())
+    print(f"type data_Week: {type(data_Week)}")
+    return Response({
+        "date": list(data_Week.keys()),
+        "data": list(data_Week.values()),
+        "nb": [len(i) for i in data_Week.values()]
+    })
+
+@sync_to_async
+@api_view(['GET'])
+def Chart_Monthly_API(request):
+    dateMensuel = request.GET.get("month", None).split("-")
+    year = dateMensuel[0]
+    month = dateMensuel[1]
+    date_string = year+"/"+month
+    today = dt.strptime(date_string, "%Y/%m")
+    print(f"today : {today}")
+    data_month = {}
+    for i in range(calendar.monthrange(today.year, today.month)[1]):
+        daty_feno = today.date()-timedelta(today.date().day-1)+timedelta(i)
+        data_month[daty_feno] =(Moto.objects.filter(date_vente=daty_feno).values())
+    return Response({
+        "date": list(data_month.keys()),
+        "data": list(data_month.values()),
+        "nb": [len(i) for i in data_month.values()]
+    })    
+
+@sync_to_async
+@api_view(['GET'])
+def StockLevel_API(request):
+    stock = Moto.objects.all().filter(date_vente = None).count()
+    return Response(stock)
+
+
+@sync_to_async
+@api_view(['GET'])
+def Last_Facture_API(request):
+    last_facture = Moto.objects.aggregate(Max('num_sur_facture'))["num_sur_facture__max"]
+    return Response(last_facture)
+
+@sync_to_async
+@api_view(['GET'])
+def Last_BL_API(request):
+    numBLlast = Moto.objects.aggregate(
+    Max('num_BL'))["num_BL__max"]
+    return Response(numBLlast)
+
+@sync_to_async
+@api_view(['GET'])
+def Edit_Moto_API(request, pk=None):
+    numBLlast = Moto.objects.aggregate(
+    Max('num_BL'))["num_BL__max"]
+    return Response(numBLlast)
+
+@sync_to_async
+@api_view(['GET'])
+def IDLast_API(request):
+    if Moto.objects.last() is not None:
+        idMotoLast = Moto.objects.last().ID_Moto
+    else:
+        idMotoLast = 0
+    return Response(idMotoLast)
