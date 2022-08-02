@@ -14,6 +14,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import MotoSerializer
 from django.db.models import Max
+from num2words import num2words
+
 
 
 # Create your views here.
@@ -317,13 +319,30 @@ def Chart_Monthly_API(request):
         "date": list(data_month.keys()),
         "data": list(data_month.values()),
         "nb": [len(i) for i in data_month.values()]
+    })  
+
+@sync_to_async
+@api_view(['GET'])
+def Vente_Today_API(request):
+    today = dt.now()
+    print(f"today : {today}")
+    data_now =(Moto.objects.filter(date_vente=today).values())
+    return Response({
+        "date": today,
+        "data": list(data_now.values()),
+        "nb": [len(i) for i in data_now.values()]
     })    
 
 @sync_to_async
 @api_view(['GET'])
 def StockLevel_API(request):
-    stock = Moto.objects.all().filter(date_vente = None).count()
-    return Response(stock)
+    stock = Moto.objects.all().filter(date_vente = None)
+    stock_level = stock.count()
+    showroom = stock.filter(localisation="Showroom")
+    depot = stock.filter(localisation="Depot")
+    pShowroom = showroom.count()*100/stock_level
+    pDepot = depot.count()*100/stock_level
+    return Response({"number":stock_level,"showroom":showroom.count(),"depot":depot.count(),"pShowroom":pShowroom,"pDepot":pDepot})
 
 
 @sync_to_async
@@ -354,3 +373,12 @@ def IDLast_API(request):
     else:
         idMotoLast = 0
     return Response(idMotoLast)
+
+@sync_to_async
+@api_view(['GET'])
+def total2word_API(request):
+    number = request.GET.get("number", None)
+    print(f"number ={number}")
+    word = num2words(number,lang='fr')
+    word = word.replace("-"," ")
+    return Response(word)    
