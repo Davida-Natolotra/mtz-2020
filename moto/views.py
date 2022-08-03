@@ -15,6 +15,7 @@ from rest_framework.decorators import api_view
 from .serializers import MotoSerializer
 from django.db.models import Max
 from num2words import num2words
+from rest_framework import status
 
 
 
@@ -382,3 +383,12 @@ def total2word_API(request):
     word = num2words(number,lang='fr')
     word = word.replace("-"," ")
     return Response(word)    
+
+@sync_to_async()
+@api_view(['POST'])
+def add_moto_API(request):
+    serializer = MotoSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
