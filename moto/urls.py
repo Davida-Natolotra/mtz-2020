@@ -26,4 +26,6 @@ urlpatterns = [
     path('api/motos/total2word_API',views.total2word_API,name='total2wordAPI'),
     path('api/motos/venteToday_API',views.Vente_Today_API,name='VenteToday_API'),
     path('api/motos/createMoto',views.add_moto_API,name='add_moto_API'),
+    path('api/motos/updateMoto/<int:pk>',views.update_moto_API,name='update_moto_API'),
+    path('api/motos/deleteMoto/<int:pk>',views.delete_moto_API,name='delete_moto_API'),
 ]

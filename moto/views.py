@@ -275,7 +275,7 @@ def Date_Range_API(request):
     lisitra = list(lisitra)
     return Response(lisitra)
 
-
+@sync_to_async
 @api_view(['GET'])   
 def getMotos(request):
     Motos = Moto.objects.all()
@@ -341,8 +341,8 @@ def StockLevel_API(request):
     stock_level = stock.count()
     showroom = stock.filter(localisation="Showroom")
     depot = stock.filter(localisation="Depot")
-    pShowroom = showroom.count()*100/stock_level
-    pDepot = depot.count()*100/stock_level
+    pShowroom = round(showroom.count()*100/stock_level,2)
+    pDepot = round(depot.count()*100/stock_level,2)
     return Response({"number":stock_level,"showroom":showroom.count(),"depot":depot.count(),"pShowroom":pShowroom,"pDepot":pDepot})
 
 
@@ -392,3 +392,25 @@ def add_moto_API(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@sync_to_async()
+@api_view(['POST'])
+def update_moto_API(request,pk):
+    moto = Moto.objects.get(id=pk)
+    serializer = MotoSerializer(instance = moto,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@sync_to_async()
+@api_view(['DELETE'])
+def delete_moto_API(request,pk):
+    moto = Moto.objects.get(id=pk)
+    moto.delete()
+    motos_all = Moto.objects.all()
+    for i in range(len(motos_all)):
+        motos_all[i].ID_Moto = i + 1
+        motos_all[i].save()
+    return Response("Deleted successfully")
+   
