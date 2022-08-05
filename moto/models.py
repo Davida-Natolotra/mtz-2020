@@ -5,7 +5,7 @@ class Moto(models.Model):
     ID_Moto = models.IntegerField(blank=True,null=True,unique=True)
     date_entree = models.DateField(auto_now=False,blank=True,null=True)
     nom_moto = models.CharField(max_length=50,blank=True)
-    num_moteur = models.CharField(max_length=50,unique=True)
+    num_moteur = models.CharField(max_length=50,blank=True,null=True,unique=True)
     FRN = models.CharField(max_length=50,blank=True)
     PA = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
     PV = models.DecimalField(null=True,blank=True,decimal_places=2,max_digits=20)
