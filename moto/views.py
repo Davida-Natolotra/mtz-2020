@@ -340,7 +340,7 @@ def StockLevel_API(request):
     stock = Moto.objects.all().filter(date_vente = None)
     stock_level = stock.count()
     showroom = stock.filter(localisation="Showroom")
-    depot = stock.filter(localisation="Depot")
+    depot = stock.filter(localisation="Dépot")
     pShowroom = round(showroom.count()*100/stock_level,2)
     pDepot = round(depot.count()*100/stock_level,2)
     return Response({"number":stock_level,"showroom":showroom.count(),"depot":depot.count(),"pShowroom":pShowroom,"pDepot":pDepot})
@@ -394,7 +394,7 @@ def add_moto_API(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @sync_to_async()
-@api_view(['POST'])
+@api_view(['PUT'])
 def update_moto_API(request,pk):
     moto = Moto.objects.get(id=pk)
     serializer = MotoSerializer(instance = moto,data=request.data)
