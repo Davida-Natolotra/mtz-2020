@@ -43,7 +43,7 @@ class Moto(models.Model):
     date_BL = models.DateField(auto_now = False, null = True)
     localisation = models.CharField(max_length=50,blank=True)
     date_arrivee = models.DateField(auto_now = False, null = True)
-    vendeur = models.CharField(max_length=50,blank=True)
+    fournisseur = models.CharField(max_length=50,blank=True)
     
     def __str__(self):
         return self.nom_moto
