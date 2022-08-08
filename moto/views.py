@@ -397,6 +397,7 @@ def add_moto_API(request):
 @api_view(['PUT'])
 def update_moto_API(request,pk):
     moto = Moto.objects.get(id=pk)
+    request.data._mutable = True
     serializer = MotoSerializer(instance = moto,data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -407,10 +408,22 @@ def update_moto_API(request,pk):
 @api_view(['DELETE'])
 def delete_moto_API(request,pk):
     moto = Moto.objects.get(id=pk)
+    moto_ID = moto.ID_Moto
     moto.delete()
-    motos_all = Moto.objects.all()
-    for i in range(len(motos_all)):
-        motos_all[i].ID_Moto = i + 1
-        motos_all[i].save()
+    motos_diff = Moto.objects.filter(ID_Moto__gte=moto_ID)
+    for i in range(len(motos_diff)):
+        motos_diff[i].ID_Moto = moto_ID +i
+        motos_diff[i].save()
     return Response("Deleted successfully")
-   
+ 
+ 
+ 
+@sync_to_async()
+@api_view(['GET'])
+def reset_ID_moto_API(request):
+    moto_all = Moto.objects.all()
+    for i in range(len(moto_all)):   
+        moto_all[i].ID_Moto = i +1
+        moto_all[i].save()
+    return Response("Reset successfully")
+     

@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/motos/createMoto',views.add_moto_API,name='add_moto_API'),
     path('api/motos/updateMoto/<int:pk>',views.update_moto_API,name='update_moto_API'),
     path('api/motos/deleteMoto/<int:pk>',views.delete_moto_API,name='delete_moto_API'),
+    path('api/motos/resetMoto',views.reset_ID_moto_API,name='reset_ID_moto_API'),
 ]
