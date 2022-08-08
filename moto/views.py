@@ -397,6 +397,19 @@ def add_moto_API(request):
 @api_view(['PUT'])
 def update_moto_API(request,pk):
     moto = Moto.objects.get(id=pk)
+    if request.data.date_facture == "":
+        request.data._mutable = True
+    serializer = MotoSerializer(instance = moto,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@sync_to_async()
+@api_view(['PUT'])
+def cancel_facture_API(request,pk):
+    moto = Moto.objects.get(id=pk)
     request.data._mutable = True
     serializer = MotoSerializer(instance = moto,data=request.data)
     if serializer.is_valid():

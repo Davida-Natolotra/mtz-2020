@@ -16,7 +16,7 @@ urlpatterns = [
     path('moto/Chart_Year_Semestre', views.Chart_Year_Semestre, name='Chart_Year_Semestre'),
     path('moto/dateRange',views.Date_Range, name='Date_Range'),
     path('api/',views.getMotos,name='api'),
-    path('api/motos/',views.Date_Range,name='motos'),
+    path('api/motos/',views.Date_Range_API,name='motos'),
     path('api/motos/chart_hebdo_api',views.Chart_Hebdo_API,name='Chart_Hebdo_API'),
     path('api/motos/chart_monthly_api',views.Chart_Monthly_API,name='Chart_Monthly_API'),
     path('api/motos/stock_level_api',views.StockLevel_API,name='Stock_Level_API'),
@@ -29,4 +29,5 @@ urlpatterns = [
     path('api/motos/updateMoto/<int:pk>',views.update_moto_API,name='update_moto_API'),
     path('api/motos/deleteMoto/<int:pk>',views.delete_moto_API,name='delete_moto_API'),
     path('api/motos/resetMoto',views.reset_ID_moto_API,name='reset_ID_moto_API'),
+    path('api/motos/cancelFacture/<int:pk>',views.cancel_facture_API,name='cancel_facture_API'),
 ]
