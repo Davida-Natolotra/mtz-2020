@@ -397,8 +397,6 @@ def add_moto_API(request):
 @api_view(['PUT'])
 def update_moto_API(request,pk):
     moto = Moto.objects.get(id=pk)
-    if request.data.date_facture == "":
-        request.data._mutable = True
     serializer = MotoSerializer(instance = moto,data=request.data)
     if serializer.is_valid():
         serializer.save()
