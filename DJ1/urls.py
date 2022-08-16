@@ -40,7 +40,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('',include('accounts.urls')),
     path('',include('commercial.urls')),
-    
+    path('',include('caisseMoto.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

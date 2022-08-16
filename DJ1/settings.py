@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'accounts',
     'commercial',
+    'caisseMoto',
     'rest_framework',
     'corsheaders'
 ]
