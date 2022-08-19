@@ -9,4 +9,5 @@ urlpatterns = [
     path('api/caisseMotos/add',views.create_caisse_moto,name='add_caisse_moto'),
     path('api/soldes/',views.get_solde_all,name='soldes'),
     path('api/soldes/update',views.update_solde_moto,name='update_solde_moto'),
+    path('api/caisseMotos/add_or_update',views.create_or_update_moto,name='create_or_update_moto'),
 ]

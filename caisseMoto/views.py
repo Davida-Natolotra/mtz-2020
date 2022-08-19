@@ -52,6 +52,29 @@ def create_caisse_moto(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @sync_to_async
+@api_view(['POST'])
+def create_or_update_moto(request):
+    id_moto = request.data["id_moto"]
+    try:
+        tofind = CaisseMoto.objects.get(id_moto = id_moto)
+        serializer = CaisseMotoSerializer(instance=tofind, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            Caisses = CaisseMoto.objects.all()
+            serializer = CaisseMotoSerializer(Caisses, many=True)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        serializer = CaisseMotoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            Caisses = CaisseMoto.objects.all()
+            serializer = CaisseMotoSerializer(Caisses, many=True)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@sync_to_async
 @api_view(['GET'])
 def get_solde_all(request):
     solde = Solde.objects.all()
@@ -65,7 +88,6 @@ def update_solde_moto(request):
     serializer = SoldeSerializer(instance=solde,data=request.data)
     if serializer.is_valid():
         serializer.save()
-        print('saved')
         solde = Solde.objects.all()
         serializer = SoldeSerializer(solde, many=True)
         return Response(serializer.data[0])

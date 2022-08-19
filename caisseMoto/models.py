@@ -6,12 +6,12 @@ from moto.models import Moto
 class CaisseMoto(models.Model):
     libellee = models.CharField(max_length=50)
     date = models.DateField(auto_now=False, null=True,blank=True)
-    depense = models.DecimalField(null=True,default="0",decimal_places=2,max_digits=20)
-    recette = models.DecimalField(null=True,default="0",decimal_places=2,max_digits=20)
-    PJ = models.FileField(blank=True, upload_to='images')
-    is_depense = models.BooleanField(default=False, blank=True)
-    is_moto = models.BooleanField(default=False, blank=True)
-    id_moto = models.ForeignKey(Moto, on_delete=models.CASCADE, null=True, blank=True)
+    depense = models.DecimalField(null=True,blank=True,default="0",decimal_places=2,max_digits=20)
+    recette = models.DecimalField(null=True,blank=True,default="0",decimal_places=2,max_digits=20)
+    PJ = models.FileField(blank=True,null=True, upload_to='images')
+    is_depense = models.BooleanField(default=False)
+    is_moto = models.BooleanField(default=False)
+    id_moto = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.libellee
