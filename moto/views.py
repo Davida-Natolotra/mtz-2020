@@ -8,6 +8,8 @@ from .serializers import MotoSerializer
 from django.db.models import Max
 from num2words import num2words
 from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -72,6 +74,12 @@ def getMotos(request):
     serializer = MotoSerializer(Motos,many=True)
     return Response(serializer.data)
 
+@sync_to_async
+@api_view(['GET'])   
+def detailMoto(request,pk):
+    moto = Moto.objects.get(id=pk)
+    serializer = MotoSerializer(instance=moto,many=False)
+    return Response(serializer.data)
 
 @sync_to_async
 @api_view(['GET']) 
@@ -233,3 +241,14 @@ def reset_ID_moto_API(request):
 def get_vente_API(request):
     vente = Moto.objects.filter(date_vente__isnull=False).values()
     return Response(vente)   
+
+class UserView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
+    def get(self, request):
+        displayName = request.user.username       
+        userid = request.user.id
+        role = request.user.groups.all()[0]
+        content = { 'displayName': displayName,'id': userid, 'role': str(role) }
+       
+        return Response(content)

@@ -5,9 +5,11 @@
 		}
 	],
 	"settings": {
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.defaultFormatter": "KevinRose.vsc-python-indent",
 		"firestorerules.usePrettierFormatter": true,
-		"prettier.enable": false
+		"prettier.enable": true,
+		"editor.formatOnSave": true,
+		"docker.languageserver.formatter.ignoreMultilineInstructions": true
 	},
 	"launch": {
 		"configurations": [

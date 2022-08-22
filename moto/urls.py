@@ -19,4 +19,6 @@ urlpatterns = [
     path('api/motos/resetMoto',views.reset_ID_moto_API,name='reset_ID_moto_API'),
     path('api/motos/cancelFacture/<int:pk>',views.cancel_facture_API,name='cancel_facture_API'),
     path('api/motos/ventes/',views.get_vente_API,name='ventes'),
+    path('api/user/',views.UserView.as_view(),name='user'),
+    path('api/motos/<int:pk>',views.detailMoto,name='detailMoto'),
 ]
