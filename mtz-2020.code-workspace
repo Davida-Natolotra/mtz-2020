@@ -5,7 +5,7 @@
 		}
 	],
 	"settings": {
-		"editor.defaultFormatter": "KevinRose.vsc-python-indent",
+		"editor.defaultFormatter": "giyyapan.pyformat",
 		"firestorerules.usePrettierFormatter": true,
 		"prettier.enable": true,
 		"editor.formatOnSave": true,
