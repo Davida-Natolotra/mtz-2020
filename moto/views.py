@@ -218,6 +218,19 @@ def update_moto_API(request, pk):
 
 @sync_to_async()
 @api_view(['PUT'])
+def archive_moto_API(request, pk):
+    moto = Moto.objects.get(id=pk)
+    serializer = MotoSerializer(instance=moto, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        Motos = Moto.objects.all()
+        serializer = MotoSerializer(Motos, many=True)
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@sync_to_async()
+@api_view(['PUT'])
 def cancel_facture_API(request, pk):
     moto = Moto.objects.get(id=pk)
     request.data._mutable = True
@@ -238,7 +251,9 @@ def delete_moto_API(request, pk):
     for i in range(len(motos_diff)):
         motos_diff[i].ID_Moto = moto_ID + i
         motos_diff[i].save()
-    return Response("Deleted successfully")
+    Motos = Moto.objects.all()
+    serializer = MotoSerializer(Motos, many=True)
+    return Response(serializer.data)
 
 
 @sync_to_async()
