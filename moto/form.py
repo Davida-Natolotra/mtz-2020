@@ -4,7 +4,7 @@ from moto.models import Moto
 from django.core.exceptions import ValidationError
 from decimal import Decimal, DecimalException
 from django.utils import formats
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 
 class Thousands(forms.DecimalField):
@@ -13,7 +13,7 @@ class Thousands(forms.DecimalField):
             return None
         if self.localize:
             value = formats.sanitize_separators(value)
-        value = force_text(value).strip().replace(' ', '')
+        value = force_str(value).strip().replace(' ', '')
 
         try:
             value = Decimal(value)
